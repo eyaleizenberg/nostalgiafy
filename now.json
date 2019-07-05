@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "name": "nextjs",
+  "builds": [
+    { "src": "package.json", "use": "@now/next" },
+    { "src": "/api/*.ts", "use": "@now/node" }
+  ],
+  "routes": [{ "src": "/api/(.*)", "dest": "/api/$1" }]
+}
