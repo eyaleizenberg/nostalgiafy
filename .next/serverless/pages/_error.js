@@ -6689,7 +6689,7 @@ var private_dot_next_react_loadable_manifest_json__WEBPACK_IMPORTED_MODULE_4___n
         Document: (next_dist_pages_document__WEBPACK_IMPORTED_MODULE_5___default()),
         buildManifest: private_dot_next_build_manifest_json__WEBPACK_IMPORTED_MODULE_3__,
         reactLoadableManifest: private_dot_next_react_loadable_manifest_json__WEBPACK_IMPORTED_MODULE_4__,
-        buildId: "NRemyO6etnDfREXAXLwCd",
+        buildId: "cFro-_Z8PzVB3M1ej7wGA",
         dynamicBuildId: false,
         assetPrefix: "",
         ampBindInitData: false

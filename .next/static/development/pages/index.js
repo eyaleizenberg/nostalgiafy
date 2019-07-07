@@ -9923,7 +9923,7 @@ _babel_runtime_corejs2_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(f
 
 /***/ }),
 
-/***/ 0:
+/***/ 1:
 /*!*************************************************************************************************************************!*\
   !*** multi next-client-pages-loader?page=%2F&absolutePagePath=%2FUsers%2Feyale%2Fdev%2Fnostalgiafy%2Fpages%2Findex.tsx ***!
   \*************************************************************************************************************************/
@@ -9946,5 +9946,5 @@ module.exports = dll_afa7b25a60452594c240;
 
 /***/ })
 
-},[[0,"static/runtime/webpack.js"]]]);
+},[[1,"static/runtime/webpack.js"]]]);
 //# sourceMappingURL=index.js.map

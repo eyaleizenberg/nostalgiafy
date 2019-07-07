@@ -11,6 +11,9 @@ const Index = ({ text }: { text: string }) => {
         <Link href="/about">
           <a>Go to About Me</a>
         </Link>
+        <Link href="/login">
+          <a>Log me in baby!</a>
+        </Link>
         <span>{text}</span>
       </section>
     </main>
