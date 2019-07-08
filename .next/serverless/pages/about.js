@@ -1637,7 +1637,7 @@ function (_Component) {
         Document: _document_default.a,
         buildManifest: build_manifest,
         reactLoadableManifest: react_loadable_manifest,
-        buildId: "cFro-_Z8PzVB3M1ej7wGA",
+        buildId: "8W1gAmeKGIkpRN3oe37ZL",
         dynamicBuildId: false,
         assetPrefix: "",
         ampBindInitData: false
@@ -4022,7 +4022,7 @@ module.exports = __webpack_require__("UDep");
 /***/ "LZ9C":
 /***/ (function(module) {
 
-module.exports = {"devFiles":[],"pages":{"/":["static/runtime/webpack-a79426b5e11f0ba5879d.js","static/chunks/commons.8c40584d4c37a1f70078.js","static/runtime/main-8265ea5e4f59eccb31ae.js"],"/_app":["static/runtime/webpack-a79426b5e11f0ba5879d.js","static/chunks/commons.8c40584d4c37a1f70078.js","static/runtime/main-8265ea5e4f59eccb31ae.js"],"/_error":["static/runtime/webpack-a79426b5e11f0ba5879d.js","static/chunks/commons.8c40584d4c37a1f70078.js","static/runtime/main-8265ea5e4f59eccb31ae.js"],"/about":["static/runtime/webpack-a79426b5e11f0ba5879d.js","static/chunks/commons.8c40584d4c37a1f70078.js","static/runtime/main-8265ea5e4f59eccb31ae.js"],"/index":["static/runtime/webpack-a79426b5e11f0ba5879d.js","static/chunks/commons.8c40584d4c37a1f70078.js","static/runtime/main-8265ea5e4f59eccb31ae.js"]}};
+module.exports = {"devFiles":[],"pages":{"/":["static/runtime/webpack-a79426b5e11f0ba5879d.js","static/chunks/commons.c2223f586faa7996d0bb.js","static/runtime/main-50a3cc69fbc016d00f83.js"],"/_app":["static/runtime/webpack-a79426b5e11f0ba5879d.js","static/chunks/commons.c2223f586faa7996d0bb.js","static/runtime/main-50a3cc69fbc016d00f83.js"],"/_error":["static/runtime/webpack-a79426b5e11f0ba5879d.js","static/chunks/commons.c2223f586faa7996d0bb.js","static/runtime/main-50a3cc69fbc016d00f83.js"],"/about":["static/runtime/webpack-a79426b5e11f0ba5879d.js","static/chunks/commons.c2223f586faa7996d0bb.js","static/runtime/main-50a3cc69fbc016d00f83.js"],"/albums":["static/runtime/webpack-a79426b5e11f0ba5879d.js","static/chunks/commons.c2223f586faa7996d0bb.js","static/runtime/main-50a3cc69fbc016d00f83.js"],"/index":["static/runtime/webpack-a79426b5e11f0ba5879d.js","static/chunks/commons.c2223f586faa7996d0bb.js","static/runtime/main-50a3cc69fbc016d00f83.js"]}};
 
 /***/ }),
 

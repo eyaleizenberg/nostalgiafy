@@ -1,5 +1,4 @@
 import * as React from 'react';
-import fetch from "isomorphic-unfetch";
 import Link from "next/link";
 import Header from "../components/header";
 
@@ -11,20 +10,18 @@ const Index = ({ text }: { text: string }) => {
         <Link href="/about">
           <a>Go to About Me</a>
         </Link>
-        <Link href="/login">
+        <br />
+        <Link href="/api/login">
           <a>Log me in baby!</a>
+        </Link>
+        <br />
+        <Link href="/albums">
+          <a>albums</a>
         </Link>
         <span>{text}</span>
       </section>
     </main>
   );
-}
-
-Index.getInitialProps = async () => {
-  const result = await fetch('http://localhost:3000/api/kuku.ts');
-  return {
-    text: await result.text()
-  }
 }
 
 export default Index;

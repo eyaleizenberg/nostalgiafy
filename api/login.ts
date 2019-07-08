@@ -1,11 +1,3 @@
-// app.get('*', (req: Request, res: Response) => {
-//   console.log('Hello KUKU!', req.url)
-//   res.set('Content-Type', 'text/html');
-//   res.status(200).end('KUKU 098');
-// });
-
-// module.exports = app;
-
 import { Request, Response } from "express";
 import passport from "passport";
 import { Strategy } from "passport-spotify";
@@ -17,11 +9,12 @@ app.use(passport.session());
 passport.use(
   new Strategy(
     {
-      consumerKey: process.env.SPOTIFY_TOKEN,
-      consumerSecret: process.env.SPOTIFY_SECRET,
-      callbackURL: "http://localhost:3000/login"
+      clientID: process.env.SPOTIFY_TOKEN,
+      clientSecret: process.env.SPOTIFY_SECRET,
+      callbackURL: "http://localhost:3000/api/login"
     },
     function(_token: string, _tokenSecret: string, profile: any, cb: Function) {
+      console.log('TOKEN ', _token, "TOKEN SECRET ", _tokenSecret);
       return cb(null, profile);
     }
   )
@@ -37,27 +30,27 @@ passport.deserializeUser(function(user, done) {
 
 app.get(
   "*",
-  passport.authenticate("spotify"),
+  passport.authenticate("spotify", {
+    scope: ['user-library-read'],
+    showDialog: true
+  } as any),
   (req: Request, res: Response) => {
     if (req.session) {
       delete req.session.passport; // This adds a lot of bloat to the cookie and causes it to not get persisted.
-
-      const {
-        name,
-        description,
-        screen_name,
-        profile_image_url_https,
-        profile_link_color
-      } = req.user._json;
-
-      req.session["user-from-twitter"] = {
-        name,
-        screen_name,
-        description,
-        profile_link_color,
-        profile_image_url_https
-      };
+    } else {
+      req.session = {};
     }
+
+    const {
+      id,
+      displayName,
+    } = req.user;
+
+    req.session["nostalgiafy-spotify-user"] = {
+      id,
+      displayName,
+    };
+
     res.redirect("/albums");
   }
 );

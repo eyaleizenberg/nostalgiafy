@@ -5,10 +5,10 @@
     { "src": "package.json", "use": "@now/next" },
     { "src": "/api/*.ts", "use": "@now/node" }
   ],
-  "routes": [{ "src": "/api/(.*)", "dest": "/api/$1" }],
+  "routes": [{ "src": "/api/(.*)", "dest": "/api/$1.ts" }],
   "env": {
     "SPOTIFY_TOKEN": "@spotify-token",
     "SPOTIFY_SECRET": "@spotify-secret",
-    "COOK_KEY": "@serverless-express-cook-key"
+    "COOKIE_KEY": "@cookie-key"
   }
 }
