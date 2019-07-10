@@ -6737,7 +6737,7 @@ var pages_Index = function Index(_ref) {
         Document: _document_default.a,
         buildManifest: build_manifest,
         reactLoadableManifest: react_loadable_manifest,
-        buildId: "8W1gAmeKGIkpRN3oe37ZL",
+        buildId: "ijtMhGnHLLGRry2_Jwmb6",
         dynamicBuildId: false,
         assetPrefix: "",
         ampBindInitData: false

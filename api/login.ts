@@ -2,9 +2,26 @@ import { Request, Response } from "express";
 import passport from "passport";
 import { Strategy } from "passport-spotify";
 import { app } from "../utilities/app";
+import { ProfileWithRaw } from "../types/user";
+import { findOrCreateUser } from "../utilities/db";
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+const getUser = async (
+  accessToken: string,
+  refreshToken: string,
+  profile: ProfileWithRaw,
+  cb: Function
+) => {
+  const { _raw, _json, ...profileProps } = profile;
+  const user = await findOrCreateUser({
+    ...profileProps,
+    accessToken,
+    refreshToken
+  });
+  cb(null, user);
+};
 
 passport.use(
   new Strategy(
@@ -13,15 +30,12 @@ passport.use(
       clientSecret: process.env.SPOTIFY_SECRET,
       callbackURL: "http://localhost:3000/api/login"
     },
-    function(_token: string, _tokenSecret: string, profile: any, cb: Function) {
-      console.log('TOKEN ', _token, "TOKEN SECRET ", _tokenSecret);
-      return cb(null, profile);
-    }
+    getUser
   )
 );
 
-passport.serializeUser(function(user, done) {
-  done(null, user);
+passport.serializeUser(function(profile: ProfileWithRaw, done) {
+  done(null, profile);
 });
 
 passport.deserializeUser(function(user, done) {
@@ -31,7 +45,7 @@ passport.deserializeUser(function(user, done) {
 app.get(
   "*",
   passport.authenticate("spotify", {
-    scope: ['user-library-read'],
+    scope: ["user-library-read"],
     showDialog: true
   } as any),
   (req: Request, res: Response) => {
@@ -41,14 +55,10 @@ app.get(
       req.session = {};
     }
 
-    const {
-      id,
-      displayName,
-    } = req.user;
+    const { _id } = req.user;
 
     req.session["nostalgiafy-spotify-user"] = {
-      id,
-      displayName,
+      _id
     };
 
     res.redirect("/albums");

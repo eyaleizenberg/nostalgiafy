@@ -9,6 +9,7 @@
   "env": {
     "SPOTIFY_TOKEN": "@spotify-token",
     "SPOTIFY_SECRET": "@spotify-secret",
-    "COOKIE_KEY": "@cookie-key"
+    "COOKIE_KEY": "@cookie-key",
+    "MONGODB_URL": "@my-mongodb-uri"
   }
 }
