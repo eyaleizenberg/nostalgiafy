@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { NextContext } from 'next'
+import { NextPageContext } from 'next'
 import { checkLogin } from '../utilities/check-login';
 import { getAlbums } from '../utilities/api';
 
@@ -10,7 +10,7 @@ interface State {
 export default class Albums extends React.PureComponent<null, State> {
   readonly state = { albums: [] };
 
-  static getInitialProps = async (context: NextContext) => {
+  static getInitialProps = async (context: NextPageContext) => {
     await checkLogin(context);
     return {};
   }

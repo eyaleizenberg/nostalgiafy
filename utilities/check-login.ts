@@ -1,8 +1,8 @@
 import Router from "next/router";
 import fetch from "isomorphic-unfetch";
-import { NextContext } from "next";
+import { NextPageContext } from "next";
 
-export const checkLogin = async ({ req, res }: NextContext) => {
+export const checkLogin = async ({ req, res }: NextPageContext) => {
   const opts = {} as any;
 
   if (req) {

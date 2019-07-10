@@ -4,8 +4,18 @@
     "usedIds": {}
   },
   "chunks": {
-    "byName": {},
+    "byName": {
+      "pages/_error.js": 0,
+      "pages/about.js": 1,
+      "pages/albums.js": 2,
+      "pages/index.js": 3
+    },
     "bySource": {},
-    "usedIds": []
+    "usedIds": [
+      0,
+      1,
+      2,
+      3
+    ]
   }
 }

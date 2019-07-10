@@ -40,4 +40,4 @@ app.get("*", async (req: Request, res: Response) => {
   res.status(200).end(JSON.stringify(albums.body.items));
 });
 
-module.exports = app;
+export default app;

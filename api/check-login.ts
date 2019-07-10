@@ -7,6 +7,6 @@ app.get("*", (req: Request, res: Response) => {
   } else {
     res.status(200).end();
   }
-})
+});
 
-module.exports = app;
+export default app;

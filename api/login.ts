@@ -65,4 +65,4 @@ app.get(
   }
 );
 
-module.exports = app;
+export default app;
