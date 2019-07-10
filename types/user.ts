@@ -1,3 +1,8 @@
+export interface Tokens {
+  accessToken: string;
+  refreshToken: string;
+}
+
 export interface Profile {
   provider: string;
   id: string;
@@ -15,10 +20,7 @@ export interface ProfileWithRaw extends Profile {
   _json: Object;
 }
 
-export interface User extends Profile {
-  accessToken: string;
-  refreshToken: string;
-}
+export interface User extends Profile, Tokens {}
 
 export interface UserWithId extends User {
   _id: string;

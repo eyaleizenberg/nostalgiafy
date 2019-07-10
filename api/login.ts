@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import passport from "passport";
 import { Strategy } from "passport-spotify";
 import { app } from "../utilities/app";
-import { ProfileWithRaw } from "../types/user";
-import { findOrCreateUser } from "../utilities/db";
+import { ProfileWithRaw } from "../types";
+import { findOrCreateUserFromSpotify } from "../db/user";
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -15,11 +15,12 @@ const getUser = async (
   cb: Function
 ) => {
   const { _raw, _json, ...profileProps } = profile;
-  const user = await findOrCreateUser({
+  const user = await findOrCreateUserFromSpotify({
     ...profileProps,
     accessToken,
     refreshToken
   });
+
   cb(null, user);
 };
 
