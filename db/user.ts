@@ -24,14 +24,14 @@ export const findUserById = async (id: string): Promise<UserWithId> => {
   return user;
 };
 
-export const updateUser = async (user: Partial<UserWithId>) => {
+export const updateUser = async (id: string, user: Partial<UserWithId>) => {
   const collection = await connectToUsersCollection();
-  const response = await collection.update(
+  const response = await collection.findOneAndUpdate(
     {
-      id: new ObjectId(user._id)
+      _id: new ObjectId(id)
     },
-    user
+    { $set: user }
   );
 
-  return response.ops[0];
+  return response.value;
 };

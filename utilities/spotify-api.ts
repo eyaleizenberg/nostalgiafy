@@ -1,5 +1,8 @@
-import { Tokens, Album } from "./../types";
+import { AlbumRawWithDate } from "./../types/album";
+import { Tokens } from "./../types";
 import SpotifyWebApi from "spotify-web-api-node";
+
+const limit = 50;
 
 const getClient = ({ accessToken, refreshToken }: Tokens) =>
   new SpotifyWebApi({
@@ -12,15 +15,34 @@ const getClient = ({ accessToken, refreshToken }: Tokens) =>
 
 export const getAlbumsFromSpotify = async (
   tokens: Tokens
-): Promise<Album[]> => {
+): Promise<AlbumRawWithDate[]> => {
   const spotifyApi = getClient(tokens);
 
-  const albums = await spotifyApi.getMySavedAlbums({
-    limit: 50,
+  let albums: AlbumRawWithDate[] = [];
+
+  const {
+    body: { next, items, total }
+  } = await spotifyApi.getMySavedAlbums({
+    limit,
     offset: 0
   });
 
-  return albums.body.items;
+  albums.push(items);
+
+  if (next) {
+    const iterationsNeeded = Math.ceil((total - limit) / limit);
+    const responses = await Promise.all(
+      Array.from(Array(iterationsNeeded)).map((_val, index) => {
+        return spotifyApi.getMySavedAlbums({ limit, offset: 50 + index * 50 });
+      })
+    );
+
+    responses.forEach(response => {
+      albums.push(response.body.items);
+    });
+  }
+
+  return albums.flat();
 };
 
 export const getNewAccessToken = async (tokens: Tokens): Promise<string> => {
