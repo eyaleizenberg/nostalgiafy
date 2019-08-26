@@ -21,8 +21,8 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "typeRoots": ["./node_modules/@types"]
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "**/*.spec.ts"],
   "include": ["external-types.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

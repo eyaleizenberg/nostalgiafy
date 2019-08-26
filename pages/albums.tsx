@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NextPageContext } from 'next'
 import { checkLogin } from '../utilities/check-login';
-import { getAlbums } from '../utilities/api';
+import { getAlbums } from '../utilities/albums-service/albums-service';
 
 interface State {
   albums: any;
@@ -16,7 +16,8 @@ export default class Albums extends React.PureComponent<null, State> {
   }
 
   async componentDidMount() {
-    getAlbums();
+    const albums = await getAlbums();
+    console.log(albums)
   }
 
   render() {

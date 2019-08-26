@@ -7,26 +7,36 @@ import {
   getAlbumsFromSpotify,
   getNewAccessToken
 } from "../utilities/spotify-api";
-import { normalizeAlbums } from "../utilities/album-utils";
+import { normalizeAndFilterAlbums } from "../utilities/album-utils/album-utils";
 
 app.get("*", async (req: Request, res: Response) => {
   await checkLogin({ req, res } as any);
   // @ts-ignore
   const id = req.session["nostalgiafy-spotify-user"]._id;
   const { accessToken, refreshToken } = await findUserById(id);
+  const lastSavedAlbumId = req.query.lastSavedAlbumId;
   let rawAlbums: AlbumRawWithDate[] = [];
 
   try {
-    rawAlbums = await getAlbumsFromSpotify({ accessToken, refreshToken });
-  } catch ({ statusCode }) {
-    if (statusCode === 401) {
+    rawAlbums = await getAlbumsFromSpotify({
+      tokens: {
+        accessToken,
+        refreshToken
+      },
+      lastSavedAlbumId
+    });
+  } catch (error) {
+    if (error.statusCode === 401) {
       const newToken = await getNewAccessToken({ accessToken, refreshToken });
       // @ts-ignore
       const [_user, spotifyResponse] = await Promise.all([
         updateUser(id, { accessToken: newToken }),
         getAlbumsFromSpotify({
-          accessToken: newToken,
-          refreshToken
+          tokens: {
+            accessToken: newToken,
+            refreshToken
+          },
+          lastSavedAlbumId
         })
       ]);
 
@@ -34,7 +44,7 @@ app.get("*", async (req: Request, res: Response) => {
     }
   }
   res.setHeader("Content-Type", "application/json");
-  const normalizedAlbums = normalizeAlbums(rawAlbums);
+  const normalizedAlbums = normalizeAndFilterAlbums(rawAlbums);
   res.status(200).end(JSON.stringify(normalizedAlbums));
 });
 

@@ -1,5 +1,5 @@
 import { AlbumRaw } from "./album";
-export interface AlbumsDataSet {}
+
 export enum ReleaseDatePrecision {
   DAY = "day",
   MONTH = "month",
@@ -9,7 +9,7 @@ export enum ReleaseDatePrecision {
 export interface Album {
   name: string;
   artist: string;
-  releaseDate: Date;
+  releaseDate: string;
   id: string;
   artistId: string;
   imageUrl: string;
@@ -34,6 +34,17 @@ export interface AlbumRawWithDate {
   album: AlbumRaw;
 }
 
+export interface DateToAlbumIds {
+  [date: string]: {
+    [albumId: string]: boolean;
+  };
+}
+
+export interface IdToAlbum {
+  [albumId: string]: Album;
+}
+
 export interface AlbumsDataSet {
-  [id: string]: Album;
+  byDate: DateToAlbumIds;
+  albumsInfo: IdToAlbum;
 }
