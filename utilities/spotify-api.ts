@@ -22,7 +22,6 @@ export const getAlbumsFromSpotify = async ({
   lastSavedAlbumId,
   tokens
 }: TokensAndSavedId): Promise<AlbumRawWithDate[]> => {
-  console.log("!!!!!!!!!1", lastSavedAlbumId);
   if (lastSavedAlbumId) {
     const albums = await getAlbumsDelta({ lastSavedAlbumId, tokens });
     return albums;
@@ -53,7 +52,6 @@ export const findDelta = async ({
   offset?: number;
   albums?: AlbumRawWithDate[];
 }): Promise<AlbumRawWithDate[]> => {
-  console.log("FINDING DELTA!", offset);
   const {
     body: { next, items }
   }: SpotifyResponse = await spotifyApi.getMySavedAlbums({
@@ -65,7 +63,7 @@ export const findDelta = async ({
     ({ album }: AlbumRawWithDate) => album.id === lastSavedAlbumId
   );
 
-  if (lastSavedAlbumIdIndex) {
+  if (lastSavedAlbumIdIndex > -1) {
     albums.push(...items.slice(0, lastSavedAlbumIdIndex));
     return albums;
   } else if (next) {
@@ -100,7 +98,6 @@ export const getAllAlbums = async (
     const iterationsNeeded = Math.ceil((total - limit) / limit);
     const responses = await Promise.all(
       Array.from(Array(iterationsNeeded)).map((_val, index) => {
-        console.log("!!!!!!!!!! REQUEST", index);
         return spotifyApi.getMySavedAlbums({ limit, offset: 50 + index * 50 });
       })
     );

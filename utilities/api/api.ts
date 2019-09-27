@@ -1,8 +1,14 @@
 import { Album } from "./../../types";
 import fetch from "isomorphic-unfetch";
 
-export const generateUrl = (lastSavedAlbumId: string | null): string =>
-  `http://localhost:3000/api/albums?lastSavedAlbumId=${lastSavedAlbumId}`;
+export const generateUrl = (lastSavedAlbumId: string | null): string => {
+  let baseUrl = "http://localhost:3000/api/albums";
+  if (lastSavedAlbumId) {
+    baseUrl = baseUrl + `?lastSavedAlbumId=${lastSavedAlbumId}`;
+  }
+
+  return baseUrl;
+};
 
 export const fetchAlbums = async (
   lastSavedAlbumId: string | null

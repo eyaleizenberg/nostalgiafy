@@ -9,7 +9,7 @@ import { fetchAlbums } from "../api/api";
 
 export const getAlbums = async (
   savedAlbums: AlbumsDataSet
-): Promise<AlbumsDataSet | null> => {
+): Promise<AlbumsDataSet> => {
   const lastSavedAlbumId = getLastSavedAlbumId();
   const albums = await fetchAlbums(lastSavedAlbumId);
 
