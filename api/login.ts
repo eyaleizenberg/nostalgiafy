@@ -4,6 +4,7 @@ import { Strategy } from "passport-spotify";
 import { app } from "../utilities/app";
 import { ProfileWithRaw } from "../types";
 import { findOrCreateUserFromSpotify } from "../db/user";
+import { baseUrl } from "../utilities/base-url/base-url";
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -29,7 +30,7 @@ passport.use(
     {
       clientID: process.env.SPOTIFY_TOKEN,
       clientSecret: process.env.SPOTIFY_SECRET,
-      callbackURL: "http://localhost:3000/api/login"
+      callbackURL: `${baseUrl}/api/login`
     },
     getUser
   )
@@ -47,7 +48,7 @@ app.get(
   "*",
   passport.authenticate("spotify", {
     scope: ["user-library-read"],
-    showDialog: true
+    failureRedirect: "/"
   } as any),
   (req: Request, res: Response) => {
     if (req.session) {

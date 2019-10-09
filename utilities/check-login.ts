@@ -1,6 +1,7 @@
 import Router from "next/router";
 import fetch from "isomorphic-unfetch";
 import { NextPageContext } from "next";
+import { baseUrl } from "./base-url/base-url";
 
 export const checkLogin = async ({ req, res }: NextPageContext) => {
   const opts = {} as any;
@@ -9,7 +10,7 @@ export const checkLogin = async ({ req, res }: NextPageContext) => {
     opts.headers = { cookie: req.headers.cookie };
   }
 
-  const response = await fetch("http://localhost:3000/api/check-login", opts);
+  const response = await fetch(`${baseUrl}/api/check-login`, opts);
   if (response.status === 403) {
     if (res) {
       res.writeHead(302, { Location: "/" });

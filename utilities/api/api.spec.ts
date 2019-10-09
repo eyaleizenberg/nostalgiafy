@@ -1,6 +1,7 @@
 import { Album } from "./../../types";
 import { fetchAlbums, generateUrl } from "./api";
 import fetch from "isomorphic-unfetch";
+import { baseUrl } from "../base-url/base-url";
 
 const mockAlbums: Album[] = [];
 const lastSavedAlbumId = "123";
@@ -17,7 +18,7 @@ jest.mock("isomorphic-unfetch", () => ({
 describe("api", () => {
   it("should generate url from the lastSavedAlbumId", () => {
     expect(generateUrl(lastSavedAlbumId)).toBe(
-      "http://localhost:3000/api/albums?lastSavedAlbumId=123"
+      `${baseUrl}/api/albums?lastSavedAlbumId=123`
     );
   });
 

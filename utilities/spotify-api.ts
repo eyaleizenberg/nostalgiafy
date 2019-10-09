@@ -6,6 +6,7 @@ import {
   SpotifyClient
 } from "./../types";
 import SpotifyWebApi from "spotify-web-api-node";
+import { baseUrl } from "./base-url/base-url";
 
 const limit = 50;
 
@@ -15,7 +16,7 @@ const getClient = ({ accessToken, refreshToken }: Tokens) =>
     refreshToken,
     clientId: process.env.SPOTIFY_TOKEN,
     clientSecret: process.env.SPOTIFY_SECRET,
-    redirectUri: "http://localhost:3000/api/login"
+    redirectUri: `${baseUrl}/api/login`
   });
 
 export const getAlbumsFromSpotify = async ({
