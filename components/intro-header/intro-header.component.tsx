@@ -1,7 +1,7 @@
 import * as React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import Gramophone from "../logo/gramophone.svg";
+import Gramophone from "./gramophone.svg";
 
 export class IntroHeader extends React.PureComponent {
   render() {
