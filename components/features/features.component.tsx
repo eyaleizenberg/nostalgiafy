@@ -1,6 +1,6 @@
 import * as React from "react";
 import InLove from "./in-love.svg";
-import Github from "./github.svg";
+import Github from "../social-icons/github.svg";
 import Zeit from "./zeit-black-triangle.svg";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";

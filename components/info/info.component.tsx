@@ -1,6 +1,7 @@
 import * as React from "react";
 import Container from "react-bootstrap/Container";
 import { Features } from "../features/features.component";
+import { AboutMe } from "../about-me/about-me.component";
 
 export class Info extends React.PureComponent {
   render() {
@@ -18,6 +19,10 @@ export class Info extends React.PureComponent {
           <h1>Features</h1>
         </div>
         <Features />
+        <div id="about" className="description">
+          <h1>About Me</h1>
+        </div>
+        <AboutMe />
         <style jsx>
           {`
             .description {
