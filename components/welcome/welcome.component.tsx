@@ -17,31 +17,29 @@ export class Welcome extends React.PureComponent<{}, State> {
   render() {
     const { buttonClicked } = this.state;
     return (
-      <>
-        <div className="splash-image">
-          <Container>
-            <div className="header-text">
-              <div className="welcome-text">
-                <span>{`Welcome to `}</span>
-                <span className="brand-name">Nostalgiafy!</span>
-              </div>
-              <div className="login-container">
-                <Link href="/api/login">
-                  <Button
-                    variant="warning"
-                    disabled={buttonClicked}
-                    onClick={this.handleButtonClicked}
-                  >
-                    Log In
-                  </Button>
-                </Link>
-                <span className="scroll-text">
-                  Or scroll down to learn more...
-                </span>
-              </div>
+      <div className="splash-image">
+        <Container>
+          <div className="header-text">
+            <div className="welcome-text">
+              <span>{`Welcome to `}</span>
+              <span className="brand-name">Nostalgiafy!</span>
             </div>
-          </Container>
-        </div>
+            <div className="login-container">
+              <Link href="/api/login">
+                <Button
+                  variant="warning"
+                  disabled={buttonClicked}
+                  onClick={this.handleButtonClicked}
+                >
+                  Log In
+                </Button>
+              </Link>
+              <span className="scroll-text">
+                Or scroll down to learn more...
+              </span>
+            </div>
+          </div>
+        </Container>
         <style jsx>
           {`
             .login-container {
@@ -70,7 +68,7 @@ export class Welcome extends React.PureComponent<{}, State> {
               height: 400px;
             }
             .brand-name {
-              color: #ffc640;
+              color: #f39c12;
               font-family: "Lobster", cursive;
             }
             @media (min-width: 576px) {
@@ -104,12 +102,12 @@ export class Welcome extends React.PureComponent<{}, State> {
                 margin-top: 180px;
               }
               .header-text {
-                padding-top: 270px;
+                padding-top: 250px;
               }
             }
           `}
         </style>
-      </>
+      </div>
     );
   }
 }
