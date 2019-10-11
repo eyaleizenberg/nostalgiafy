@@ -4,6 +4,15 @@ import { Features } from "../features/features.component";
 import { AboutMe } from "../about-me/about-me.component";
 
 export class Info extends React.PureComponent {
+  handleBackToTop = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const el = document.querySelector("#top");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+
+    event.preventDefault();
+  };
+
   render() {
     return (
       <Container>
@@ -23,6 +32,11 @@ export class Info extends React.PureComponent {
           <h1>About Me</h1>
         </div>
         <AboutMe />
+        <div className="description">
+          <a href="#top" onClick={this.handleBackToTop}>
+            <h5>Back to top</h5>
+          </a>
+        </div>
         <style jsx>
           {`
             .description {
@@ -31,6 +45,9 @@ export class Info extends React.PureComponent {
             }
             h4 {
               margin-top: 20px;
+            }
+            h5 {
+              margin-bottom: 20px;
             }
           `}
         </style>

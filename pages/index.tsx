@@ -6,7 +6,7 @@ import { Info } from "../components/info/info.component";
 export default class Index extends React.PureComponent {
   render() {
     return (
-      <main>
+      <main id="top">
         <IntroHeader />
         <Welcome />
         <Info />
