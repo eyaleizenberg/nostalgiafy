@@ -48,7 +48,6 @@ app.get(
   "*",
   passport.authenticate("spotify", {
     scope: ["user-library-read"],
-    showDialog: true,
     failureRedirect: "/"
   } as any),
   (req: Request, res: Response) => {
