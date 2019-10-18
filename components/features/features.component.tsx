@@ -42,7 +42,7 @@ interface Feature {
 export class Features extends React.PureComponent {
   renderFeature({ title, description, icon, Button }: Feature, key: number) {
     return (
-      <Col key={key} lg={4} className="feature-container">
+      <Col key={key} lg md className="feature-container">
         <div className="icon-container">
           <img src={icon} />
         </div>

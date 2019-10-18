@@ -3,53 +3,53 @@ import { NextPageContext } from "next";
 import { checkLogin } from "../utilities/check-login";
 import { getAlbums } from "../utilities/albums-service/albums-service";
 import { getSavedAlbums } from "../utilities/localstorage";
-import { AlbumsDataSet } from "../types";
-import { generateTodayKey } from "../utilities/date-utils/date-utils";
+import { AlbumsDataSet, Album } from "../types";
+import Container from "react-bootstrap/Container";
+import { Albums } from "../components/albums/albums.component";
+import { getTodaysAlbums } from "../utilities/album-utils/album-utils";
+/* import { generateTodayKey } from "../utilities/date-utils/date-utils"; */
 
 interface State {
   albumsDataSet: AlbumsDataSet;
+  todaysAlbums: Album[];
 }
 
-export default class Albums extends React.PureComponent<null, State> {
-  readonly currentDateKey: string = generateTodayKey();
-  readonly state = { albumsDataSet: { byDate: {}, albumsInfo: {} } as AlbumsDataSet };
+export default class AlbumsPage extends React.PureComponent<null, State> {
+  readonly currentDateKey: string = "01-22"; // generateTodayKey();
+  readonly state = {
+    albumsDataSet: { byDate: {}, albumsInfo: {} } as AlbumsDataSet,
+    todaysAlbums: []
+  };
 
   static getInitialProps = async (context: NextPageContext) => {
     await checkLogin(context);
     return {};
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     const cachedAlbumsDataSet = getSavedAlbums();
-    this.setState({ albumsDataSet: cachedAlbumsDataSet});
-    const albumsDataSet = await getAlbums(cachedAlbumsDataSet);
-    this.setState({ albumsDataSet });
-  }
-
-  renderTodayAlbums() {
-    const {
-      albumsDataSet: { byDate, albumsInfo }
-    } = this.state;
-    const albumsToday = byDate[this.currentDateKey];
-
-    if (!albumsToday) {
-      return <span>No albums today...</span>;
-    }
-
-    return Object.keys(albumsToday).map((albumId: string) => {
-      const album = albumsInfo[albumId];
-      return <span key={albumId}>{`${album.name}`}</span>;
-    });
+    this.setState(
+      {
+        albumsDataSet: cachedAlbumsDataSet,
+        todaysAlbums: getTodaysAlbums(cachedAlbumsDataSet, this.currentDateKey)
+      },
+      async () => {
+        const albumsDataSet = await getAlbums(cachedAlbumsDataSet);
+        this.setState({
+          albumsDataSet,
+          todaysAlbums: getTodaysAlbums(albumsDataSet, this.currentDateKey)
+        });
+      }
+    );
   }
 
   render() {
+    const { todaysAlbums } = this.state;
     return (
-      <main>
-        <section>
-          <h1>ALBUMS!</h1>
-          {this.renderTodayAlbums()}
-        </section>
-      </main>
+      <Container>
+        <h1>Albums</h1>
+        {!!todaysAlbums.length && <Albums albums={todaysAlbums} />}
+      </Container>
     );
   }
 }

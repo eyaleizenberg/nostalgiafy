@@ -34,6 +34,19 @@ export const normalizeAndFilterAlbums = (
 export const releaseDateKey = (releaseDate: string): string =>
   releaseDate.replace(/[^-]*-/, "");
 
+export const getTodaysAlbums = (
+  { byDate, albumsInfo }: AlbumsDataSet,
+  dateKey: string
+): Album[] => {
+  const todaysIds = byDate[dateKey];
+
+  if (!todaysIds) {
+    return [];
+  }
+
+  return Object.keys(todaysIds).map((albumId: string) => albumsInfo[albumId]);
+};
+
 export const toDataSet = (
   albums: Album[],
   initialData: AlbumsDataSet = {

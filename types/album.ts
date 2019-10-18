@@ -6,14 +6,14 @@ export enum ReleaseDatePrecision {
   YEAR = "year"
 }
 
-export interface Album {
+export type Album = {
   name: string;
   artist: string;
   releaseDate: string;
   id: string;
   artistId: string;
   imageUrl: string;
-}
+};
 
 export interface AlbumRaw {
   artists: {
