@@ -25,8 +25,6 @@ export class AlbumCard extends React.PureComponent<
     wikiSummaryHeight: 70
   };
 
-  readonly summaryRef = React.createRef<HTMLDivElement>();
-
   async componentDidMount() {
     const { artist, name } = this.props;
 
@@ -42,7 +40,7 @@ export class AlbumCard extends React.PureComponent<
     }
   }
 
-  private generateAgoText(): string {
+  private headerText(): string {
     const { releaseDate, currentYear } = this.props;
     const releaseYear: number = new Date(releaseDate).getFullYear();
     const diff: number = currentYear - releaseYear;
@@ -55,59 +53,28 @@ export class AlbumCard extends React.PureComponent<
   }
 
   handleClick = () => {
-    if (this.state.wikiExpanded) {
-      this.setState({ wikiExpanded: false, wikiSummaryHeight: 70 });
-    } else if (this.summaryRef.current) {
-      this.setState({
-        wikiSummaryHeight: this.summaryRef.current.scrollHeight,
-        wikiExpanded: true
-      });
-    }
+    this.setState({ wikiExpanded: !this.state.wikiExpanded });
   };
 
   renderWiki() {
-    const { wikiExpanded, wikiSummary, wikiSummaryHeight } = this.state;
-    if (!wikiSummary) {
-      return null;
-    }
-
+    const { wikiSummary, wikiExpanded } = this.state;
     return (
-      <>
-        <div
-          className={`summary-container ${
-            wikiExpanded ? "expanded" : "collapsed"
-          }`}
-          style={{ height: wikiSummaryHeight }}
-        >
-          <div ref={this.summaryRef}>
-            <Card.Text className="wiki-summary">{wikiSummary}</Card.Text>
-          </div>
-        </div>
+      <Card.Body className={`card-body-wiki ${wikiExpanded ? "expanded" : ""}`}>
+        <Card.Text className="wiki-summary">{wikiSummary}</Card.Text>
         <style jsx>{`
-          .summary-container {
-            position: relative;
-            overflow: hidden;
-            margin-top: 15px;
-            transition: height 300ms ease-in-out;
+          :global(.card-body-wiki) {
+            height: 318px;
+            overflow: scroll;
+            transition: opacity 150ms ease-in-out;
+            opacity: 0;
+            z-index: 10;
           }
-          .summary-container.collapsed:after {
-            content: "";
-            text-align: right;
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 100%;
-            height: 50px;
-            background: linear-gradient(
-              to bottom,
-              rgba(255, 255, 255, 0),
-              rgba(48, 48, 48, 1) 90%
-            );
-          }
-          :global(.wiki-summary) {
+          :global(.card-body-wiki.expanded) {
+            transition: opacity 300ms ease-in-out 150ms;
+            opacity: 1;
           }
         `}</style>
-      </>
+      </Card.Body>
     );
   }
 
@@ -116,47 +83,89 @@ export class AlbumCard extends React.PureComponent<
 
     return (
       <div className="buttons-container">
-        {wikiSummary && (
-          <Button variant="warning" onClick={this.handleClick}>
-            {wikiExpanded ? "Collapse Wiki" : "Expand Wiki"}
-          </Button>
-        )}
         <a
           href={`https://open.spotify.com/album/${this.props.id}`}
           target="_blank"
         >
           <Button variant="success">Play On Spotify</Button>
         </a>
+        {wikiSummary && (
+          <Button variant="warning" onClick={this.handleClick}>
+            {wikiExpanded ? "Collapse Wiki" : "Expand Wiki"}
+          </Button>
+        )}
         <style jsx>{`
           .buttons-container {
             width: 100%;
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
           }
         `}</style>
       </div>
     );
   }
 
+  renderAlbumTitle() {
+    const { artist, name } = this.props;
+
+    return (
+      <Card.Body
+        style={{ opacity: this.state.wikiExpanded ? 0.5 : 1 }}
+        className="album-card-name"
+      >
+        <Card.Title>{artist}</Card.Title>
+        <Card.Subtitle style={{ fontStyle: "italic" }}>{name}</Card.Subtitle>
+        <style jsx>{`
+          :global(.album-card-name) {
+            transition: opacity 300ms ease-in-out;
+          }
+        `}</style>
+      </Card.Body>
+    );
+  }
+
   render() {
-    const { artist, name, imageUrl } = this.props;
+    const { imageUrl } = this.props;
+    const { wikiExpanded } = this.state;
 
     return (
       <Col lg md className="album-card-container">
-        <Card border="warning" style={{ width: "20rem" }}>
-          <Card.Header>{this.generateAgoText()}</Card.Header>
-          <Card.Img variant="top" src={imageUrl} />
-          <Card.Body>
-            <Card.Title>{artist}</Card.Title>
-            <Card.Subtitle>{name}</Card.Subtitle>
-            {this.renderWiki()}
-            {this.renderButtons()}
-          </Card.Body>
+        <Card border="warning" className={"album-card"}>
+          <Card.Header
+            style={{ opacity: wikiExpanded ? 0.5 : 1 }}
+            className="album-card-header"
+          >
+            {this.headerText()}
+          </Card.Header>
+          <Card.Img
+            variant="top"
+            src={imageUrl}
+            style={{
+              opacity: wikiExpanded ? 0.03 : 1,
+              transform: `scaleX(${wikiExpanded ? -1 : 1}`
+            }}
+            className={"album-image"}
+          />
+          {this.renderWiki()}
+          {this.renderAlbumTitle()}
+          <Card.Body>{this.renderButtons()}</Card.Body>
         </Card>
         <style jsx>{`
+          :global(.album-card-header) {
+            transition: opacity 300ms ease-in-out;
+          }
+          :global(.album-image) {
+            transition: opacity 300ms ease-in-out;
+            position: absolute;
+            top: 47px;
+            transition: transform 300ms ease-in-out;
+          }
           :global(.album-card-container) {
             margin-bottom: 3rem;
+          }
+          :global(.album-card) {
+            width: 20rem;
+            margin: 0 auto;
           }
         `}</style>
       </Col>

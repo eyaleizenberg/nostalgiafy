@@ -7,7 +7,7 @@ import { AlbumsDataSet, Album } from "../types";
 import Container from "react-bootstrap/Container";
 import { Albums } from "../components/albums/albums.component";
 import { getTodaysAlbums } from "../utilities/album-utils/album-utils";
-/* import { generateTodayKey } from "../utilities/date-utils/date-utils"; */
+import { generateTodayKey } from "../utilities/date-utils/date-utils";
 
 interface State {
   albumsDataSet: AlbumsDataSet;
@@ -15,7 +15,7 @@ interface State {
 }
 
 export default class AlbumsPage extends React.PureComponent<null, State> {
-  readonly currentDateKey: string = "01-22"; // generateTodayKey();
+  readonly currentDateKey: string = generateTodayKey();
   readonly state = {
     albumsDataSet: { byDate: {}, albumsInfo: {} } as AlbumsDataSet,
     todaysAlbums: []
@@ -47,8 +47,14 @@ export default class AlbumsPage extends React.PureComponent<null, State> {
     const { todaysAlbums } = this.state;
     return (
       <Container>
-        <h1>Albums</h1>
+        <h1>Your Saved Albums</h1>
         {!!todaysAlbums.length && <Albums albums={todaysAlbums} />}
+        <style jsx>{`
+          h1 {
+            text-align: center;
+            margin: 15px 0;
+          }
+        `}</style>
       </Container>
     );
   }
