@@ -33,7 +33,9 @@ export class AlbumCard extends React.PureComponent<
       .then((data: any) => data.results[0]);
 
     if (searchResult) {
-      const wikiSummary = await wiki()
+      const wikiSummary = await wiki({
+        apiUrl: "https://en.wikipedia.org/w/api.php"
+      })
         .page(searchResult)
         .then((page: any) => page.summary());
       this.setState({ wikiSummary });
