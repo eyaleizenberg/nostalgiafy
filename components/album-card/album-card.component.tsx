@@ -28,7 +28,9 @@ export class AlbumCard extends React.PureComponent<
   async componentDidMount() {
     const { artist, name } = this.props;
 
-    const searchResult = await wiki()
+    const searchResult = await wiki({
+      apiUrl: "https://en.wikipedia.org/w/api.php"
+    })
       .search(`${artist} - ${name}`)
       .then((data: any) => data.results[0]);
 
