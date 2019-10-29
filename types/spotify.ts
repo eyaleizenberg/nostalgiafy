@@ -2,7 +2,7 @@ import { AlbumRawWithDate } from "./album";
 import { Tokens } from "./user";
 
 export interface TokensAndSavedId {
-  lastSavedAlbumId: string;
+  lastSavedAlbumId?: string;
   tokens: Tokens;
 }
 

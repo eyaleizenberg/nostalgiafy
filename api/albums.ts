@@ -6,7 +6,7 @@ import { findUserById, updateUser } from "../db/user";
 import {
   getAlbumsFromSpotify,
   getNewAccessToken
-} from "../utilities/spotify-api";
+} from "../utilities/spotify-api/spotify-api";
 import { normalizeAndFilterAlbums } from "../utilities/album-utils/album-utils";
 
 app.get("*", async (req: Request, res: Response) => {

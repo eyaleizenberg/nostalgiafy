@@ -16,7 +16,7 @@
     "mongodb": "^3.2.7",
     "next": "^9.0.0",
     "next-images": "^1.2.0",
-    "now": "^16.3.1",
+    "now": "^16.4.4",
     "passport": "^0.4.0",
     "passport-spotify": "^1.0.1",
     "react": "^16.7.0",

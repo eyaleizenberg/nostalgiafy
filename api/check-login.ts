@@ -5,7 +5,8 @@ app.get("*", (req: Request, res: Response) => {
   if (!req.session || !req.session["nostalgiafy-spotify-user"]) {
     res.status(403).end();
   } else {
-    res.status(200).end();
+    const { displayName, profilePic } = req.session["nostalgiafy-spotify-user"];
+    res.status(200).json({ displayName, profilePic });
   }
 });
 

@@ -21,3 +21,11 @@ export const connectToUsersCollection = async (): Promise<Collection> => {
   const collection = await db.collection("users");
   return collection;
 };
+
+export const connectToFavoriteGenresCollection = async (): Promise<
+  Collection
+> => {
+  const db = await connectToDatabase(process.env.MONGODB_URL as string);
+  const collection = await db.collection("favorite-genres");
+  return collection;
+};

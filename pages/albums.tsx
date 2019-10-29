@@ -8,22 +8,35 @@ import Container from "react-bootstrap/Container";
 import { Albums } from "../components/albums/albums.component";
 import { getTodaysAlbums } from "../utilities/album-utils/album-utils";
 import { generateTodayKey } from "../utilities/date-utils/date-utils";
+import { Header } from "../components/header/header.component";
+import Link from "next/link";
+import Button from "react-bootstrap/Button";
 
 interface State {
   albumsDataSet: AlbumsDataSet;
   todaysAlbums: Album[];
+  tooltipOpen: boolean;
 }
 
-export default class AlbumsPage extends React.PureComponent<null, State> {
+interface AlbumsProps {
+  profilePic: string;
+  displayName: string;
+}
+
+export default class AlbumsPage extends React.PureComponent<
+  AlbumsProps,
+  State
+> {
   readonly currentDateKey: string = generateTodayKey();
   readonly state = {
     albumsDataSet: { byDate: {}, albumsInfo: {} } as AlbumsDataSet,
-    todaysAlbums: []
+    todaysAlbums: [],
+    tooltipOpen: false
   };
 
   static getInitialProps = async (context: NextPageContext) => {
-    await checkLogin(context);
-    return {};
+    const res = await checkLogin(context);
+    return { ...res };
   };
 
   componentDidMount() {
@@ -43,19 +56,43 @@ export default class AlbumsPage extends React.PureComponent<null, State> {
     );
   }
 
+  renderNav() {
+    return (
+      <>
+        <img src={this.props.profilePic} className="avatar" />
+        <Link href="/logout">
+          <Button variant="warning" size="sm">
+            Logout
+          </Button>
+        </Link>
+        <style jsx>{`
+          .avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+          }
+        `}</style>
+      </>
+    );
+  }
+
   render() {
     const { todaysAlbums } = this.state;
     return (
-      <Container>
-        <h1>Your Saved Albums</h1>
-        {!!todaysAlbums.length && <Albums albums={todaysAlbums} />}
-        <style jsx>{`
-          h1 {
-            text-align: center;
-            margin: 15px 0;
-          }
-        `}</style>
-      </Container>
+      <>
+        <Header navbarProps={{ expand: undefined }}>{this.renderNav()}</Header>
+        <Container>
+          <h1>Your Saved Albums</h1>
+          {!!todaysAlbums.length && <Albums albums={todaysAlbums} />}
+          <style jsx>{`
+            h1 {
+              text-align: center;
+              margin: 15px 0;
+            }
+          `}</style>
+        </Container>
+      </>
     );
   }
 }

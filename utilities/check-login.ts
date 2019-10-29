@@ -19,4 +19,6 @@ export const checkLogin = async ({ req, res }: NextPageContext) => {
       Router.replace("/");
     }
   }
+
+  return response.json();
 };

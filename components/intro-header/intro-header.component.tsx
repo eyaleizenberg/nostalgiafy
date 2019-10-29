@@ -1,8 +1,7 @@
 import * as React from "react";
-import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
-import Gramophone from "./gramophone.svg";
 import { baseUrl } from "../../utilities/base-url/base-url";
+import { Header } from "../header/header.component";
 
 export class IntroHeader extends React.PureComponent {
   handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -34,30 +33,9 @@ export class IntroHeader extends React.PureComponent {
 
   render() {
     return (
-      <Navbar collapseOnSelect expand="sm">
-        <Navbar.Brand href="#home">
-          <img
-            alt=""
-            src={Gramophone}
-            width="30"
-            height="30"
-            className="d-inline-block align-top"
-          />{" "}
-          <span className="brand-name">Nostalgiafy</span>
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="mr-auto"></Nav>
-          <Nav>{this.renderLinks()}</Nav>
-        </Navbar.Collapse>
-        <style jsx>{`
-          .brand-name {
-            color: #f39c12;
-            font-family: "Lobster", cursive;
-            margin-left: 10px;
-          }
-        `}</style>
-      </Navbar>
+      <Header>
+        <>{this.renderLinks()}</>
+      </Header>
     );
   }
 }

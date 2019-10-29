@@ -5,6 +5,7 @@ import { app } from "../utilities/app";
 import { ProfileWithRaw } from "../types";
 import { findOrCreateUserFromSpotify } from "../db/user";
 import { baseUrl } from "../utilities/base-url/base-url";
+import { setFavoriteGenres } from "../db/favorite-genres/favorite-genres";
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -47,20 +48,36 @@ passport.deserializeUser(function(user, done) {
 app.get(
   "*",
   passport.authenticate("spotify", {
-    scope: ["user-library-read"],
+    scope: ["user-library-read", "user-top-read"],
     failureRedirect: "/"
   } as any),
-  (req: Request, res: Response) => {
+  async (req: Request, res: Response) => {
     if (req.session) {
       delete req.session.passport; // This adds a lot of bloat to the cookie and causes it to not get persisted.
     } else {
       req.session = {};
     }
 
-    const { _id } = req.user;
+    const {
+      _id,
+      displayName,
+      photos,
+      accessToken,
+      refreshToken,
+      id
+    } = req.user;
+
+    await setFavoriteGenres({
+      accessToken,
+      refreshToken,
+      spotifyId: id,
+      userId: _id
+    });
 
     req.session["nostalgiafy-spotify-user"] = {
-      _id
+      _id,
+      displayName,
+      profilePic: photos[0]
     };
 
     res.redirect("/albums");

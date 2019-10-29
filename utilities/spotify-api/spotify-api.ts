@@ -4,13 +4,14 @@ import {
   TokensAndSavedId,
   SpotifyResponse,
   SpotifyClient
-} from "./../types";
+} from "../../types";
 import SpotifyWebApi from "spotify-web-api-node";
-import { baseUrl } from "./base-url/base-url";
+import { baseUrl } from "../base-url/base-url";
+import { Artist } from "../../types/artists";
 
 const limit = 50;
 
-const getClient = ({ accessToken, refreshToken }: Tokens) =>
+export const getClient = ({ accessToken, refreshToken }: Tokens) =>
   new SpotifyWebApi({
     accessToken,
     refreshToken,
@@ -36,6 +37,10 @@ export const getAlbumsDelta = async ({
   tokens,
   lastSavedAlbumId
 }: TokensAndSavedId): Promise<AlbumRawWithDate[]> => {
+  if (!lastSavedAlbumId) {
+    return [];
+  }
+
   return findDelta({
     lastSavedAlbumId,
     spotifyApi: getClient(tokens)
@@ -115,4 +120,14 @@ export const getNewAccessToken = async (tokens: Tokens): Promise<string> => {
   const spotifyApi = getClient(tokens);
   const data = await spotifyApi.refreshAccessToken();
   return data.body["access_token"];
+};
+
+export const getTopArtists = async (tokens: Tokens): Promise<Artist[]> => {
+  const spotifyApi = getClient(tokens);
+  const response = await spotifyApi.getMyTopArtists({
+    time_range: "long_term",
+    limit: 50
+  });
+
+  return response.body.items;
 };
