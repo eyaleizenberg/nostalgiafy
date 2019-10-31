@@ -63,19 +63,17 @@ export class AlbumCard extends React.PureComponent<
   renderWiki() {
     const { wikiSummary, wikiExpanded } = this.state;
     return (
-      <Card.Body className={`card-body-wiki ${wikiExpanded ? "expanded" : ""}`}>
+      <Card.Body
+        className="card-body-wiki"
+        style={{ opacity: wikiExpanded ? 1 : 0 }}
+      >
         <Card.Text className="wiki-summary">{wikiSummary}</Card.Text>
         <style jsx>{`
           :global(.card-body-wiki) {
             height: 318px;
             overflow: scroll;
-            transition: opacity 150ms ease-in-out;
-            opacity: 0;
+            transition: opacity 300ms ease-in-out;
             z-index: 10;
-          }
-          :global(.card-body-wiki.expanded) {
-            transition: opacity 300ms ease-in-out 150ms;
-            opacity: 1;
           }
         `}</style>
       </Card.Body>
@@ -145,8 +143,7 @@ export class AlbumCard extends React.PureComponent<
             variant="top"
             src={imageUrl}
             style={{
-              opacity: wikiExpanded ? 0.03 : 1,
-              transform: `scaleX(${wikiExpanded ? -1 : 1}`
+              opacity: wikiExpanded ? 0.1 : 1
             }}
             className={"album-image"}
           />
@@ -162,7 +159,6 @@ export class AlbumCard extends React.PureComponent<
             transition: opacity 300ms ease-in-out;
             position: absolute;
             top: 47px;
-            transition: transform 300ms ease-in-out;
           }
           :global(.album-card-container) {
             margin-bottom: 3rem;

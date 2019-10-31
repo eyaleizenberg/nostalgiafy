@@ -18,14 +18,17 @@ const connectToDatabase = async (uri: string): Promise<Db> => {
 
 export const connectToUsersCollection = async (): Promise<Collection> => {
   const db = await connectToDatabase(process.env.MONGODB_URL as string);
-  const collection = await db.collection("users");
-  return collection;
+  return db.collection("users");
 };
 
 export const connectToFavoriteGenresCollection = async (): Promise<
   Collection
 > => {
   const db = await connectToDatabase(process.env.MONGODB_URL as string);
-  const collection = await db.collection("favorite-genres");
-  return collection;
+  return db.collection("favorite-genres");
+};
+
+export const connectToAlbumDatesCollection = async (): Promise<Collection> => {
+  const db = await connectToDatabase(process.env.MONGODB_URL as string);
+  return db.collection("album-dates");
 };
