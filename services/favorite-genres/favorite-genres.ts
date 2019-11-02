@@ -1,10 +1,10 @@
-import { connectToFavoriteGenresCollection } from "../db-api";
+import { connectToFavoriteGenresCollection } from "../../db/db-api";
 import { Tokens, Artist, Genres } from "../../types";
 import {
   getTopArtists,
   getNewAccessToken
 } from "../../utilities/spotify-api/spotify-api";
-import { updateUser } from "../user";
+import { updateUser } from "../user/user";
 
 export interface SetFavoriteGenresOpts extends Tokens {
   spotifyId: string;

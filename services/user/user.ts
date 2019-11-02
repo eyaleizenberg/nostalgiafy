@@ -1,6 +1,6 @@
-import { User, UserWithId } from "../types";
+import { User, UserWithId } from "../../types";
 import { ObjectId } from "mongodb";
-import { connectToUsersCollection } from "./db-api";
+import { connectToUsersCollection } from "../../db/db-api";
 
 export const findOrCreateUserFromSpotify = async (
   user: User

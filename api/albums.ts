@@ -2,12 +2,13 @@ import { AlbumRawWithDate } from "./../types/album";
 import { app } from "../utilities/app";
 import { Request, Response } from "express";
 import { checkLogin } from "../utilities/check-login";
-import { findUserById, updateUser } from "../db/user";
+import { findUserById, updateUser } from "../services/user/user";
 import {
   getAlbumsFromSpotify,
   getNewAccessToken
 } from "../utilities/spotify-api/spotify-api";
 import { normalizeAndFilterAlbums } from "../utilities/album-utils/album-utils";
+import { setAlbums } from "../services/albums-service/albums-service";
 
 app.get("*", async (req: Request, res: Response) => {
   await checkLogin({ req, res } as any);
@@ -45,6 +46,11 @@ app.get("*", async (req: Request, res: Response) => {
   }
   res.setHeader("Content-Type", "application/json");
   const normalizedAlbums = normalizeAndFilterAlbums(rawAlbums);
+  try {
+    await setAlbums(normalizedAlbums);
+  } catch (error) {
+    console.log("!!!!!!!!", error);
+  }
   res.status(200).end(JSON.stringify(normalizedAlbums));
 });
 

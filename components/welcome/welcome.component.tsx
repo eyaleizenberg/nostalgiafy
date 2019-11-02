@@ -31,7 +31,7 @@ export class Welcome extends React.PureComponent<{}, State> {
                   disabled={buttonClicked}
                   onClick={this.handleButtonClicked}
                 >
-                  Log In
+                  {buttonClicked ? "Logging in..." : "Log In"}
                 </Button>
               </Link>
               <span className="scroll-text">

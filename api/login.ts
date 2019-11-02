@@ -3,9 +3,9 @@ import passport from "passport";
 import { Strategy } from "passport-spotify";
 import { app } from "../utilities/app";
 import { ProfileWithRaw } from "../types";
-import { findOrCreateUserFromSpotify } from "../db/user";
+import { findOrCreateUserFromSpotify } from "../services/user/user";
 import { baseUrl } from "../utilities/base-url/base-url";
-import { setFavoriteGenres } from "../db/favorite-genres/favorite-genres";
+import { setFavoriteGenres } from "../services/favorite-genres/favorite-genres";
 
 app.use(passport.initialize());
 app.use(passport.session());

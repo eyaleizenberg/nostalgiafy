@@ -6,7 +6,7 @@ const refreshToken = "789";
 const userId = "000";
 const opts = { spotifyId, accessToken, refreshToken, userId };
 
-jest.mock("../db-api", () => ({
+jest.mock("../../db/db-api", () => ({
   connectToFavoriteGenresCollection: jest.fn(() =>
     Promise.resolve({
       findOneAndUpdate: mockFindOneAndUpdate
@@ -19,7 +19,7 @@ jest.mock("../../utilities/spotify-api/spotify-api", () => ({
 }));
 
 import { setFavoriteGenres } from "./favorite-genres";
-import { connectToFavoriteGenresCollection } from "../db-api";
+import { connectToFavoriteGenresCollection } from "../../db/db-api";
 import { getTopArtists } from "../../utilities/spotify-api/spotify-api";
 
 describe("favorite-genres", () => {

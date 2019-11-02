@@ -1,7 +1,7 @@
 import * as React from "react";
 import { NextPageContext } from "next";
 import { checkLogin } from "../utilities/check-login";
-import { getAlbums } from "../utilities/albums-service/albums-service";
+import { getAlbums } from "../services/albums-service/albums-service";
 import { getSavedAlbums } from "../utilities/localstorage";
 import { AlbumsDataSet, Album } from "../types";
 import Container from "react-bootstrap/Container";
