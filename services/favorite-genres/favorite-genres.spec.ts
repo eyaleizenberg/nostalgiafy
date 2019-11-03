@@ -19,7 +19,7 @@ jest.mock("../../utilities/spotify-api/spotify-api", () => ({
 }));
 
 import { setFavoriteGenres } from "./favorite-genres";
-import { connectToFavoriteGenresCollection } from "../db-api";
+import { connectToFavoriteGenresCollection } from "../../db/db-api";
 import { getTopArtists } from "../../utilities/spotify-api/spotify-api";
 
 describe("favorite-genres", () => {

@@ -2,7 +2,7 @@ import { AlbumRawWithDate } from "./../types/album";
 import { app } from "../utilities/app";
 import { Request, Response } from "express";
 import { checkLogin } from "../utilities/check-login";
-import { findUserById, updateUser } from "../db/user";
+import { findUserById, updateUser } from "../services/user/user";
 import {
   getAlbumsFromSpotify,
   getNewAccessToken
