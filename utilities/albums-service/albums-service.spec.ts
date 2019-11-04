@@ -22,7 +22,7 @@ const album3 = generateAlbum({
 
 const albums = [album1, album2];
 
-jest.mock("../api/api", () => ({
+jest.mock("../../services/albums-service/albums-service", () => ({
   fetchAlbums: mockFetchAlbums
 }));
 

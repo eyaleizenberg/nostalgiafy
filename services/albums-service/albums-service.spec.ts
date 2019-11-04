@@ -1,7 +1,7 @@
-import { Album } from "./../../types";
-import { fetchAlbums, generateUrl } from "./api";
+import { Album } from "../../types";
+import { fetchAlbums, generateUrl } from "./albums-service";
 import fetch from "isomorphic-unfetch";
-import { baseUrl } from "../base-url/base-url";
+import { baseUrl } from "../../utilities/base-url/base-url";
 
 const mockAlbums: Album[] = [];
 const lastSavedAlbumId = "123";

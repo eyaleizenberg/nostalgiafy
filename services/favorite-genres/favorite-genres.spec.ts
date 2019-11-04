@@ -6,7 +6,7 @@ const refreshToken = "789";
 const userId = "000";
 const opts = { spotifyId, accessToken, refreshToken, userId };
 
-jest.mock("../db-api", () => ({
+jest.mock("../../db/db-api", () => ({
   connectToFavoriteGenresCollection: jest.fn(() =>
     Promise.resolve({
       findOneAndUpdate: mockFindOneAndUpdate

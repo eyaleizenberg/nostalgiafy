@@ -1,6 +1,6 @@
-import { Album } from "./../../types";
+import { Album } from "../../types";
 import fetch from "isomorphic-unfetch";
-import { baseUrl } from "../base-url/base-url";
+import { baseUrl } from "../../utilities/base-url/base-url";
 
 export const generateUrl = (lastSavedAlbumId: string | null): string => {
   let albumsUrl = `${baseUrl}/api/albums`;

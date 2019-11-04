@@ -5,7 +5,7 @@ import {
   getLastSavedAlbumId
 } from "../localstorage";
 import { toDataSet } from "../album-utils/album-utils";
-import { fetchAlbums } from "../api/api";
+import { fetchAlbums } from "../../services/albums-service/albums-service";
 
 export const getAlbums = async (
   savedAlbums: AlbumsDataSet
