@@ -38,7 +38,7 @@ const retrieveTopArtists = async ({
       // @ts-ignore
       const [_user, artists] = await Promise.all([
         updateUser(userId, { accessToken: newToken }),
-        getTopArtists({ accessToken, refreshToken })
+        getTopArtists({ accessToken: newToken, refreshToken })
       ]);
 
       return artists;
