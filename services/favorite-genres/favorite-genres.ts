@@ -43,7 +43,7 @@ const retrieveTopArtists = async ({
 
       return artists;
     } else {
-    throw new Error("Can't get spotify data for this user");
+      throw new Error("Can't get spotify data for this user");
     }
   }
 };

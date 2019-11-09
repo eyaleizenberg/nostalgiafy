@@ -5,7 +5,7 @@ import { app } from "../utilities/app";
 import { ProfileWithRaw } from "../types";
 import { findOrCreateUserFromSpotify } from "../services/user/user";
 import { baseUrl } from "../utilities/base-url/base-url";
-import { setFavoriteGenres } from "../services/favorite-genres/favorite-genres";
+// import { setFavoriteGenres } from "../services/favorite-genres/favorite-genres";
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -61,18 +61,18 @@ app.get(
     const {
       _id,
       displayName,
-      photos,
-      accessToken,
-      refreshToken,
-      id
+      photos
+      // accessToken,
+      // refreshToken,
+      // id
     } = req.user;
 
-    await setFavoriteGenres({
-      accessToken,
-      refreshToken,
-      spotifyId: id,
-      userId: _id
-    });
+    // await setFavoriteGenres({
+    //   accessToken,
+    //   refreshToken,
+    //   spotifyId: id,
+    //   userId: _id
+    // });
 
     req.session["nostalgiafy-spotify-user"] = {
       _id,
