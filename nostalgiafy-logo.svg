@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   inkscape:version="1.0beta1 (32d4812, 2019-09-19)"
+   height="512"
+   width="2259"
+   sodipodi:docname="nostalgiafy-logo.svg"
+   xml:space="preserve"
+   viewBox="0 0 2259 512"
+   y="0px"
+   x="0px"
+   id="Layer_1"
+   version="1.1"><metadata
+   id="metadata228">
+  <rdf:RDF>
+    <cc:Work
+   rdf:about="">
+      <dc:format>image/svg+xml</dc:format>
+
+
+      <dc:type
+   rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+
+
+      <dc:title></dc:title>
+
+
+    </cc:Work>
+
+
+  </rdf:RDF>
+
+
+</metadata>
+
+
+<defs
+   id="defs226">
+  <rect
+   x="548.57141"
+   y="165.71429"
+   width="1943.283"
+   height="905.80383"
+   id="rect47" />
+
+</defs>
+
+
+<sodipodi:namedview
+   inkscape:current-layer="Layer_1"
+   inkscape:window-maximized="0"
+   inkscape:window-y="23"
+   inkscape:window-x="0"
+   inkscape:cy="291.93836"
+   inkscape:cx="2365.5286"
+   inkscape:zoom="1.6232822"
+   showgrid="false"
+   id="namedview224"
+   inkscape:window-height="855"
+   inkscape:window-width="1440"
+   inkscape:pageshadow="2"
+   inkscape:pageopacity="0"
+   guidetolerance="10"
+   gridtolerance="10"
+   objecttolerance="10"
+   borderopacity="1"
+   inkscape:document-rotation="0"
+   bordercolor="#666666"
+   pagecolor="#ffffff" />
+
+
+
+<circle
+   id="circle161"
+   r="256"
+   cy="256"
+   cx="256"
+   style="fill:#366695" />
+
+
+<path
+   inkscape:connector-curvature="0"
+   id="path163"
+   d="M 511.953,259.687 320.534,65.905 247.38,173.253 l -136.763,48.269 0.333,37.716 31.272,30.667 13.217,74.128 -36.345,30.756 121.797,116.757 C 245.893,511.836 250.927,512 256,512 396.152,512 509.978,399.37 511.953,259.687 Z"
+   style="fill:#273b7a" />
+
+
+<path
+   inkscape:connector-curvature="0"
+   id="path165"
+   d="m 216.35,268.067 h -83.732 c -17.201,0 -31.194,-13.993 -31.194,-31.194 0,-12.909 7.761,-24.304 19.773,-29.029 l 56.889,-22.38 c 5.315,-2.096 11.319,0.522 13.41,5.839 2.093,5.315 -0.522,11.319 -5.839,13.41 l -56.889,22.381 c -4.046,1.593 -6.658,5.429 -6.658,9.778 0,5.792 4.713,10.507 10.507,10.507 h 83.732 c 5.711,0 10.343,4.632 10.343,10.343 0,5.711 -4.631,10.345 -10.342,10.345 z"
+   style="fill:#d48b07" />
+
+
+<path
+   inkscape:connector-curvature="0"
+   id="path167"
+   d="M 336.679,287.375 H 175.321 c -4.951,0 -8.964,-4.013 -8.964,-8.964 v 0 c 0,-4.951 4.013,-8.964 8.964,-8.964 h 161.358 c 4.951,0 8.964,4.013 8.964,8.964 v 0 c 0,4.951 -4.013,8.964 -8.964,8.964 z"
+   style="fill:#121149" />
+
+
+<path
+   inkscape:connector-curvature="0"
+   id="path169"
+   d="m 307.593,70.706 49.423,143.008 -186.996,4.896 c -8.264,0.217 -15.738,-4.891 -18.537,-12.669 v 0 c -2.839,-7.887 -0.224,-16.705 6.454,-21.768 z"
+   style="fill:#fee187" />
+
+
+<path
+   inkscape:connector-curvature="0"
+   id="path171"
+   d="m 151.09,204.693 c 0.119,0.417 0.243,0.833 0.391,1.245 v 0 c 2.801,7.778 10.273,12.886 18.537,12.669 l 186.995,-4.896 -25.303,-73.219 z"
+   style="fill:#ffc61b" />
+
+
+<rect
+   id="rect173"
+   height="76.713997"
+   width="246.519"
+   style="fill:#d48b07"
+   y="308.57901"
+   x="132.741" />
+
+
+<rect
+   id="rect175"
+   height="76.713997"
+   width="124.414"
+   style="fill:#b27006"
+   y="308.57901"
+   x="254.845" />
+
+
+<g
+   id="g181">
+	<path
+   inkscape:connector-curvature="0"
+   id="path177"
+   d="M 384,312.889 H 128 c -7.854,0 -14.222,-6.368 -14.222,-14.222 v 0 c 0,-7.854 6.368,-14.222 14.222,-14.222 h 256 c 7.854,0 14.222,6.368 14.222,14.222 v 0 c 0,7.854 -6.368,14.222 -14.222,14.222 z"
+   style="fill:#fee187" />
+
+
+
+	<path
+   inkscape:connector-curvature="0"
+   id="path179"
+   d="M 384,398.222 H 128 c -7.854,0 -14.222,-6.368 -14.222,-14.222 v 0 c 0,-7.854 6.368,-14.222 14.222,-14.222 h 256 c 7.854,0 14.222,6.368 14.222,14.222 v 0 c 0,7.854 -6.368,14.222 -14.222,14.222 z"
+   style="fill:#fee187" />
+
+
+
+</g>
+
+
+<g
+   id="g189">
+	<path
+   inkscape:connector-curvature="0"
+   id="path183"
+   d="M 384,284.444 H 254.852 v 28.444 H 384 c 7.854,0 14.222,-6.368 14.222,-14.222 0,-7.854 -6.368,-14.222 -14.222,-14.222 z"
+   style="fill:#ffc61b" />
+
+
+
+	<path
+   inkscape:connector-curvature="0"
+   id="path185"
+   d="M 384,369.778 H 254.852 v 28.444 H 384 c 7.854,0 14.222,-6.368 14.222,-14.222 0,-7.854 -6.368,-14.222 -14.222,-14.222 z"
+   style="fill:#ffc61b" />
+
+
+
+	<path
+   inkscape:connector-curvature="0"
+   id="path187"
+   d="M 347.16,212.952 301.937,76.229 c -1.555,-4.701 0.995,-9.771 5.696,-11.326 l 3.744,-1.238 c 4.701,-1.555 9.771,0.995 11.326,5.696 l 45.223,136.723 c 1.555,4.701 -0.995,9.771 -5.696,11.326 l -3.744,1.238 c -4.699,1.555 -9.771,-0.995 -11.326,-5.696 z"
+   style="fill:#ffc61b" />
+
+
+
+</g>
+
+
+<path
+   inkscape:connector-curvature="0"
+   id="path191"
+   d="m 367.926,206.084 -23.223,-70.21 -20.614,7.327 23.071,69.751 c 1.555,4.701 6.625,7.251 11.326,5.696 l 3.744,-1.238 c 4.702,-1.555 7.251,-6.625 5.696,-11.326 z"
+   style="fill:#d48b07" />
+
+
+<g
+   id="g193">
+</g>
+
+
+<g
+   id="g195">
+</g>
+
+
+<g
+   id="g197">
+</g>
+
+
+<g
+   id="g199">
+</g>
+
+
+<g
+   id="g201">
+</g>
+
+
+<g
+   id="g203">
+</g>
+
+
+<g
+   id="g205">
+</g>
+
+
+<g
+   id="g207">
+</g>
+
+
+<g
+   id="g209">
+</g>
+
+
+<g
+   id="g211">
+</g>
+
+
+<g
+   id="g213">
+</g>
+
+
+<g
+   id="g215">
+</g>
+
+
+<g
+   id="g217">
+</g>
+
+
+<g
+   id="g219">
+</g>
+
+
+<g
+   id="g221">
+</g>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<text
+   xml:space="preserve"
+   id="text45"
+   style="font-style:normal;font-weight:normal;font-size:373.333px;line-height:1.25;font-family:sans-serif;shape-inside:url(#rect47);fill:#000000;fill-opacity:1;stroke:none"
+   transform="translate(14.285714,-134)"><tspan
+     x="548.57227"
+     y="511.04788"
+     sodipodi:role="line"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Lobster;-inkscape-font-specification:'Lobster Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#f39c12;fill-opacity:1">Nostalgiafy</tspan></tspan></text>
+
+</svg>

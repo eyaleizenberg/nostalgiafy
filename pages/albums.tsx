@@ -11,11 +11,12 @@ import { generateTodayKey } from "../utilities/date-utils/date-utils";
 import { Header } from "../components/header/header.component";
 import Link from "next/link";
 import Button from "react-bootstrap/Button";
+import { Spinner } from "../components/spinner/spinner.component";
 
 interface State {
   albumsDataSet: AlbumsDataSet;
   todaysAlbums: Album[];
-  tooltipOpen: boolean;
+  showSpinner: boolean;
 }
 
 interface AlbumsProps {
@@ -31,7 +32,7 @@ export default class AlbumsPage extends React.PureComponent<
   readonly state = {
     albumsDataSet: { byDate: {}, albumsInfo: {} } as AlbumsDataSet,
     todaysAlbums: [],
-    tooltipOpen: false
+    showSpinner: true
   };
 
   static getInitialProps = async (context: NextPageContext) => {
@@ -41,16 +42,20 @@ export default class AlbumsPage extends React.PureComponent<
 
   componentDidMount() {
     const cachedAlbumsDataSet = getSavedAlbums();
+    const showSpinner = !Object.keys(cachedAlbumsDataSet.albumsInfo).length;
+
     this.setState(
       {
         albumsDataSet: cachedAlbumsDataSet,
-        todaysAlbums: getTodaysAlbums(cachedAlbumsDataSet, this.currentDateKey)
+        todaysAlbums: getTodaysAlbums(cachedAlbumsDataSet, this.currentDateKey),
+        showSpinner
       },
       async () => {
         const albumsDataSet = await getAlbums(cachedAlbumsDataSet);
         this.setState({
           albumsDataSet,
-          todaysAlbums: getTodaysAlbums(albumsDataSet, this.currentDateKey)
+          todaysAlbums: getTodaysAlbums(albumsDataSet, this.currentDateKey),
+          showSpinner: false
         });
       }
     );
@@ -77,20 +82,29 @@ export default class AlbumsPage extends React.PureComponent<
     );
   }
 
-  render() {
+  renderSavedAlbums() {
     const { todaysAlbums } = this.state;
+    return (
+      <>
+        <h1>Your Saved Albums</h1>
+        {!!todaysAlbums.length && <Albums albums={todaysAlbums} />}
+        <style jsx>{`
+          h1 {
+            text-align: center;
+            margin: 15px 0;
+          }
+        `}</style>
+      </>
+    );
+  }
+
+  render() {
+    const { showSpinner } = this.state;
     return (
       <>
         <Header navbarProps={{ expand: undefined }}>{this.renderNav()}</Header>
         <Container>
-          <h1>Your Saved Albums</h1>
-          {!!todaysAlbums.length && <Albums albums={todaysAlbums} />}
-          <style jsx>{`
-            h1 {
-              text-align: center;
-              margin: 15px 0;
-            }
-          `}</style>
+          {showSpinner ? <Spinner /> : this.renderSavedAlbums()}
         </Container>
       </>
     );

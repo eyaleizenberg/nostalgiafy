@@ -1,6 +1,7 @@
-import { User, UserWithId } from "../../types";
+import { User, UserWithId, Tokens } from "../../types";
 import { ObjectId } from "mongodb";
 import { connectToUsersCollection } from "../../db/db-api";
+import { getNewAccessToken } from "../../utilities/spotify-api/spotify-api";
 
 export const findOrCreateUserFromSpotify = async (
   user: User
@@ -34,4 +35,9 @@ export const updateUser = async (id: string, user: Partial<UserWithId>) => {
   );
 
   return response.value;
+};
+
+export const refreshAccessToken = async (id: string, tokens: Tokens) => {
+  const newToken = await getNewAccessToken({ ...tokens });
+  updateUser(id, { accessToken: newToken });
 };

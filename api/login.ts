@@ -3,9 +3,11 @@ import passport from "passport";
 import { Strategy } from "passport-spotify";
 import { app } from "../utilities/app";
 import { ProfileWithRaw } from "../types";
-import { findOrCreateUserFromSpotify } from "../services/user/user";
+import {
+  findOrCreateUserFromSpotify,
+  refreshAccessToken
+} from "../services/user/user";
 import { baseUrl } from "../utilities/base-url/base-url";
-import { setFavoriteGenres } from "../services/favorite-genres/favorite-genres";
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -58,21 +60,9 @@ app.get(
       req.session = {};
     }
 
-    const {
-      _id,
-      displayName,
-      photos,
-      accessToken,
-      refreshToken,
-      id
-    } = req.user;
+    const { _id, displayName, photos, accessToken, refreshToken } = req.user;
 
-    await setFavoriteGenres({
-      accessToken,
-      refreshToken,
-      spotifyId: id,
-      userId: _id
-    });
+    await refreshAccessToken(_id, { accessToken, refreshToken });
 
     req.session["nostalgiafy-spotify-user"] = {
       _id,
