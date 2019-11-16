@@ -19,9 +19,10 @@ export const findOrCreateUserFromSpotify = async (
   return response.value;
 };
 
-export const findUserById = async (id: string): Promise<UserWithId | null> => {
+export const findUserById = async (id: string): Promise<UserWithId> => {
   const collection = await connectToUsersCollection();
-  return collection.findOne({ _id: new ObjectId(id) });
+  const user = collection.findOne({ _id: new ObjectId(id) });
+  return user;
 };
 
 export const updateUser = async (id: string, user: Partial<UserWithId>) => {

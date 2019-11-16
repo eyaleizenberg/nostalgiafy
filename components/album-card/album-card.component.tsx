@@ -93,7 +93,7 @@ export class AlbumCard extends React.PureComponent<
         </a>
         {wikiSummary && (
           <Button variant="warning" onClick={this.handleClick}>
-            {wikiExpanded ? "Collapse Wiki" : "Expand Wiki"}
+            {wikiExpanded ? "Hide Wiki" : "Show Wiki"}
           </Button>
         )}
         <style jsx>{`
