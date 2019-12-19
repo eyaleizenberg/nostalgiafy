@@ -3,7 +3,7 @@ import { MongoClient, Db, Collection } from "mongodb";
 
 let cachedDb: Db;
 
-const connectToDatabase = async (uri: string): Promise<Db> => {
+export const connectToDatabase = async (uri: string): Promise<Db> => {
   if (cachedDb) {
     return cachedDb;
   }
@@ -28,7 +28,3 @@ export const connectToFavoriteGenresCollection = async (): Promise<
   return db.collection("favorite-genres");
 };
 
-export const connectToAlbumDatesCollection = async (): Promise<Collection> => {
-  const db = await connectToDatabase(process.env.MONGODB_URL as string);
-  return db.collection("album-dates");
-};

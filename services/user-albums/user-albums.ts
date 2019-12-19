@@ -8,8 +8,10 @@ import {
 } from "../../utilities/localstorage";
 import { toDataSet } from "../../utilities/album-utils/album-utils";
 
-export const generateUrl = (lastSavedAlbumId: string | null): string => {
-  let albumsUrl = `${baseUrl}/api/albums`;
+export const generateFetchUserAlbumsUrl = (
+  lastSavedAlbumId: string | null
+): string => {
+  let albumsUrl = `${baseUrl}/api/user-albums`;
   if (lastSavedAlbumId) {
     albumsUrl = albumsUrl + `?lastSavedAlbumId=${lastSavedAlbumId}`;
   }
@@ -17,19 +19,19 @@ export const generateUrl = (lastSavedAlbumId: string | null): string => {
   return albumsUrl;
 };
 
-export const fetchAlbums = async (
+export const fetchUserAlbums = async (
   lastSavedAlbumId: string | null
 ): Promise<Album[]> => {
-  const response = await fetch(generateUrl(lastSavedAlbumId));
+  const response = await fetch(generateFetchUserAlbumsUrl(lastSavedAlbumId));
   const albums = await response.json();
   return albums;
 };
 
-export const getAlbums = async (
+export const getUserAlbums = async (
   savedAlbums: AlbumsDataSet
 ): Promise<AlbumsDataSet> => {
   const lastSavedAlbumId = getLastSavedAlbumId();
-  const albums = await fetchAlbums(lastSavedAlbumId);
+  const albums = await fetchUserAlbums(lastSavedAlbumId);
 
   if (albums && albums.length) {
     const albumsDataSet = toDataSet(albums, savedAlbums);
@@ -40,3 +42,4 @@ export const getAlbums = async (
 
   return savedAlbums;
 };
+

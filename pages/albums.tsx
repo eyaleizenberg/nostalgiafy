@@ -1,7 +1,7 @@
 import * as React from "react";
 import { NextPageContext } from "next";
 import { checkLogin } from "../utilities/check-login";
-import { getAlbums } from "../services/albums-service/albums-service";
+import { getUserAlbums } from "../services/user-albums/user-albums";
 import { getSavedAlbums } from "../utilities/localstorage";
 import { AlbumsDataSet, Album } from "../types";
 import Container from "react-bootstrap/Container";
@@ -12,6 +12,7 @@ import { Header } from "../components/header/header.component";
 import Link from "next/link";
 import Button from "react-bootstrap/Button";
 import { Spinner } from "../components/spinner/spinner.component";
+import { setSocialAlbums } from "../services/social-albums/social-albums";
 
 interface State {
   albumsDataSet: AlbumsDataSet;
@@ -51,7 +52,13 @@ export default class AlbumsPage extends React.PureComponent<
         showSpinner
       },
       async () => {
-        const albumsDataSet = await getAlbums(cachedAlbumsDataSet);
+        const albumsDataSet = await getUserAlbums(cachedAlbumsDataSet);
+        const albums = Object.values(albumsDataSet.albumsInfo);
+
+        if (albums.length) {
+          setSocialAlbums(albums);
+        }
+
         this.setState({
           albumsDataSet,
           todaysAlbums: getTodaysAlbums(albumsDataSet, this.currentDateKey),

@@ -37,9 +37,12 @@ jest.mock("../../utilities/localstorage", () => ({
 }));
 
 import fetch from "isomorphic-unfetch";
-import { fetchAlbums, generateUrl } from "./albums-service";
+import {
+  fetchUserAlbums,
+  generateFetchUserAlbumsUrl,
+  getUserAlbums
+} from "./user-albums";
 import { baseUrl } from "../../utilities/base-url/base-url";
-import { getAlbums } from "./albums-service";
 import { toDataSet } from "../../utilities/album-utils/album-utils";
 
 const emptySavedData = toDataSet([]);
@@ -50,18 +53,18 @@ describe("api", () => {
   });
 
   it("should generate url from the lastSavedAlbumId", () => {
-    expect(generateUrl(lastSavedAlbumId)).toBe(
-      `${baseUrl}/api/albums?lastSavedAlbumId=123`
+    expect(generateFetchUserAlbumsUrl(lastSavedAlbumId)).toBe(
+      `${baseUrl}/api/user-albums?lastSavedAlbumId=123`
     );
   });
 
   it("should fetch with the url", async () => {
-    await fetchAlbums(lastSavedAlbumId);
-    expect(fetch).toHaveBeenCalledWith(generateUrl("123"));
+    await fetchUserAlbums(lastSavedAlbumId);
+    expect(fetch).toHaveBeenCalledWith(generateFetchUserAlbumsUrl("123"));
   });
 
   it("should return the albums from the request", async () => {
-    expect(await fetchAlbums(lastSavedAlbumId)).toBe(mockAlbums);
+    expect(await fetchUserAlbums(lastSavedAlbumId)).toBe(mockAlbums);
   });
 
   describe("getAlbums", () => {
@@ -71,18 +74,18 @@ describe("api", () => {
       });
 
       it("should return the merged albums", async () => {
-        expect(await getAlbums(toDataSet([mockAlbum3]))).toEqual(
+        expect(await getUserAlbums(toDataSet([mockAlbum3]))).toEqual(
           toDataSet([mockAlbum1, mockAlbum2, mockAlbum3])
         );
       });
 
       it("should set the last savedAlbumId", async () => {
-        await getAlbums(emptySavedData);
+        await getUserAlbums(emptySavedData);
         expect(mockSetLastSavedAlbumId).toHaveBeenCalledWith(mockAlbum1.id);
       });
 
       it("should set the saved albums", async () => {
-        await getAlbums(toDataSet([mockAlbum3]));
+        await getUserAlbums(toDataSet([mockAlbum3]));
         expect(mockSetSavedAlbums).toHaveBeenCalledWith(
           toDataSet([mockAlbum1, mockAlbum2, mockAlbum3])
         );
@@ -93,7 +96,7 @@ describe("api", () => {
       it("should return the original saved data", async () => {
         mockJsonResponse.mockReset();
         mockJsonResponse.mockResolvedValueOnce([]);
-        expect(await getAlbums(emptySavedData)).toEqual(emptySavedData);
+        expect(await getUserAlbums(emptySavedData)).toEqual(emptySavedData);
       });
     });
   });
