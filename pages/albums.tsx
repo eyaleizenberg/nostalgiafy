@@ -7,16 +7,22 @@ import { AlbumsDataSet, Album } from "../types";
 import Container from "react-bootstrap/Container";
 import { Albums } from "../components/albums/albums.component";
 import { getTodaysAlbums } from "../utilities/album-utils/album-utils";
-import { generateTodayKey } from "../utilities/date-utils/date-utils";
+{
+  /* import { generateTodayKey } from "../utilities/date-utils/date-utils"; */
+}
 import { Header } from "../components/header/header.component";
 import Link from "next/link";
 import Button from "react-bootstrap/Button";
 import { Spinner } from "../components/spinner/spinner.component";
-import { setSocialAlbums } from "../services/social-albums/social-albums";
+import {
+  setSocialAlbums,
+  fetchSocialAlbums
+} from "../services/social-albums/social-albums";
 
 interface State {
   albumsDataSet: AlbumsDataSet;
   todaysAlbums: Album[];
+  socialAlbums: Album[];
   showSpinner: boolean;
 }
 
@@ -29,10 +35,11 @@ export default class AlbumsPage extends React.PureComponent<
   AlbumsProps,
   State
 > {
-  readonly currentDateKey: string = generateTodayKey();
+  readonly currentDateKey: string = "11-02"; //generateTodayKey();
   readonly state = {
     albumsDataSet: { byDate: {}, albumsInfo: {} } as AlbumsDataSet,
     todaysAlbums: [],
+    socialAlbums: [],
     showSpinner: true
   };
 
@@ -52,16 +59,23 @@ export default class AlbumsPage extends React.PureComponent<
         showSpinner
       },
       async () => {
-        const albumsDataSet = await getUserAlbums(cachedAlbumsDataSet);
+        const [albumsDataSet, socialAlbums] = await Promise.all([
+          getUserAlbums(cachedAlbumsDataSet),
+          fetchSocialAlbums(this.currentDateKey)
+        ]);
+
         const albums = Object.values(albumsDataSet.albumsInfo);
 
         if (albums.length) {
           setSocialAlbums(albums);
         }
 
+        console.log("!!!!1", socialAlbums);
+
         this.setState({
           albumsDataSet,
           todaysAlbums: getTodaysAlbums(albumsDataSet, this.currentDateKey),
+          socialAlbums,
           showSpinner: false
         });
       }

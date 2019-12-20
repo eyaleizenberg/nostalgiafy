@@ -19,4 +19,11 @@ export const setSocialAlbums = (albums: Album[]): Promise<Response> => {
   });
 };
 
-export const fetchSocialAlbums = () => {};
+export const fetchSocialAlbums = async (
+  releaseDateKey: string
+): Promise<Album[]> => {
+  const response = await fetch(
+    `${socialAlbumsUrl}?releaseDateKey=${releaseDateKey}`
+  );
+  return response.json();
+};
