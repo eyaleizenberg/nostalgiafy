@@ -37,7 +37,11 @@ export const updateUser = async (id: string, user: Partial<UserWithId>) => {
   return response.value;
 };
 
-export const refreshAccessToken = async (id: string, tokens: Tokens) => {
+export const refreshAccessToken = async (
+  id: string,
+  tokens: Tokens
+): Promise<string> => {
   const newToken = await getNewAccessToken({ ...tokens });
-  updateUser(id, { accessToken: newToken });
+  await updateUser(id, { accessToken: newToken });
+  return newToken;
 };

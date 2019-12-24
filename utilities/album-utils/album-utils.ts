@@ -11,14 +11,16 @@ export const normalizeAlbum = ({
   artists,
   release_date,
   id,
-  images
+  images,
+  genres
 }: AlbumRaw): Album => ({
   name,
   artist: artists[0].name,
   releaseDate: release_date,
   id,
   artistId: artists[0].id,
-  imageUrl: images[0].url
+  imageUrl: images[0].url,
+  genres
 });
 
 export const normalizeAndFilterAlbums = (

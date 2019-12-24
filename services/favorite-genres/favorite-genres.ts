@@ -1,13 +1,12 @@
-import { connectToFavoriteGenresCollection } from "../../db/db-api";
 import { Tokens, Artist, Genres } from "../../types";
 import {
   getTopArtists,
   getNewAccessToken
 } from "../../utilities/spotify-api/spotify-api";
 import { updateUser } from "../../services/user/user";
+import { writeFavoriteGenres } from "../../db/favorite-genres/favorite-genres";
 
 export interface SetFavoriteGenresOpts extends Tokens {
-  spotifyId: string;
   userId: string;
 }
 
@@ -49,26 +48,15 @@ const retrieveTopArtists = async ({
 };
 
 export const setFavoriteGenres = async ({
-  spotifyId,
   accessToken,
   refreshToken,
   userId
 }: SetFavoriteGenresOpts) => {
-  const collection = await connectToFavoriteGenresCollection();
   const topArtists = await retrieveTopArtists({
     accessToken,
     refreshToken,
     userId
   });
   const genres = generateGenresMap(topArtists);
-
-  collection.findOneAndUpdate(
-    {
-      spotifyId
-    },
-    { $set: genres },
-    {
-      upsert: true
-    }
-  );
+  writeFavoriteGenres(userId, genres);
 };

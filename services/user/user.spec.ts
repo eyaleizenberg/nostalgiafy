@@ -121,5 +121,11 @@ describe("user service", () => {
         accessToken: mockNewAccessToken
       });
     });
+
+    test("should return the new accessToken", async () => {
+      expect(await refreshAccessToken(mockUserWithId._id, tokens)).toBe(
+        mockNewAccessToken
+      );
+    });
   });
 });

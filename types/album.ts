@@ -13,6 +13,7 @@ export type Album = {
   id: string;
   artistId: string;
   imageUrl: string;
+  genres: string[];
 };
 
 export interface AlbumRaw {
@@ -27,6 +28,7 @@ export interface AlbumRaw {
   name: string;
   release_date: string;
   release_date_precision: ReleaseDatePrecision;
+  genres: string[];
 }
 
 export interface AlbumRawWithDate {

@@ -51,7 +51,8 @@ export const generateRawAlbum = (opts: Partial<AlbumRaw> = {}): AlbumRaw => ({
       ReleaseDatePrecision.DAY,
       ReleaseDatePrecision.MONTH,
       ReleaseDatePrecision.YEAR
-    ])
+    ]),
+  genres: []
 });
 
 export const generateAlbum = (opts: Partial<Album> = {}): Album => ({
@@ -60,5 +61,6 @@ export const generateAlbum = (opts: Partial<Album> = {}): Album => ({
   releaseDate: opts.releaseDate || generateReleaseDate(),
   id: opts.id || chance.hash({ length: 22 }),
   artistId: opts.artistId || chance.hash({ length: 22 }),
-  imageUrl: opts.imageUrl || chance.url()
+  imageUrl: opts.imageUrl || chance.url(),
+  genres: []
 });

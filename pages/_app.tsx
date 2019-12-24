@@ -1,25 +1,8 @@
 import App, { Container } from "next/app";
-import { NextPageContext, NextComponentType } from "next";
 import Head from "next/head";
 import React from "react";
 
 export default class MyApp extends App {
-  static async getInitialProps({
-    Component,
-    ctx
-  }: {
-    Component: NextComponentType;
-    ctx: NextPageContext;
-  }) {
-    let pageProps = {};
-
-    if (Component.getInitialProps) {
-      pageProps = await Component.getInitialProps(ctx);
-    }
-
-    return { pageProps };
-  }
-
   render() {
     const { Component, pageProps } = this.props;
 

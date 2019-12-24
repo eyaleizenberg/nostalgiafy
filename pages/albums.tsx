@@ -70,8 +70,6 @@ export default class AlbumsPage extends React.PureComponent<
           setSocialAlbums(albums);
         }
 
-        console.log("!!!!1", socialAlbums);
-
         this.setState({
           albumsDataSet,
           todaysAlbums: getTodaysAlbums(albumsDataSet, this.currentDateKey),
@@ -104,11 +102,13 @@ export default class AlbumsPage extends React.PureComponent<
   }
 
   renderSavedAlbums() {
-    const { todaysAlbums } = this.state;
+    const { todaysAlbums, socialAlbums } = this.state;
     return (
       <>
         <h1>Your Saved Albums</h1>
         {!!todaysAlbums.length && <Albums albums={todaysAlbums} />}
+        <h1>Albums You Might Like</h1>
+        {!!socialAlbums.length && <Albums albums={socialAlbums} />}
         <style jsx>{`
           h1 {
             text-align: center;

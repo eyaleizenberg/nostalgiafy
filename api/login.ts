@@ -8,6 +8,7 @@ import {
   refreshAccessToken
 } from "../services/user/user";
 import { baseUrl } from "../utilities/base-url/base-url";
+import { setFavoriteGenres } from "../services/favorite-genres/favorite-genres";
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -62,7 +63,16 @@ app.get(
 
     const { _id, displayName, photos, accessToken, refreshToken } = req.user;
 
-    await refreshAccessToken(_id, { accessToken, refreshToken });
+    const newToken = await refreshAccessToken(_id, {
+      accessToken,
+      refreshToken
+    });
+
+    await setFavoriteGenres({
+      accessToken: newToken,
+      refreshToken,
+      userId: _id
+    });
 
     req.session["nostalgiafy-spotify-user"] = {
       _id,

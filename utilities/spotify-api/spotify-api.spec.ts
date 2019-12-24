@@ -1,4 +1,5 @@
 const mockGetMyTopArtists = jest.fn();
+const mockGetArtists = jest.fn();
 const mockArtist = { id: "123", genres: ["metal"] };
 
 jest.mock("spotify-web-api-node");
@@ -35,6 +36,36 @@ describe("spotify-api", () => {
       clientSecret: "spotify-secret",
       redirectUri: "http://localhost:3000/api/login",
       refreshToken: "refreshToken"
+    });
+  });
+
+  describe("get artists", () => {
+    const albumId = "123";
+    const artists = ["some-artist"];
+
+    beforeEach(() => {
+      jest.spyOn(spotifyApi, "getClient").mockReturnValue({
+        getArtists: mockGetArtists
+      });
+      mockGetArtists.mockResolvedValueOnce({ artists });
+    });
+
+    test("should retrieve the artists from spotify", async () => {
+      await spotifyApi.getArtists({
+        tokens,
+        albumsIds: [albumId]
+      });
+
+      expect(mockGetArtists).toHaveBeenCalledWith([albumId]);
+    });
+
+    test("should return the artists", async () => {
+      expect(
+        await spotifyApi.getArtists({
+          tokens,
+          albumsIds: [albumId]
+        })
+      ).toBe(artists);
     });
   });
 

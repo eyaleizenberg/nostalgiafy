@@ -1,26 +1,20 @@
-const mockFindOneAndUpdate = jest.fn();
 const mockGetTopArtists = jest.fn();
-const spotifyId = "123";
 const accessToken = "456";
 const refreshToken = "789";
-const userId = "000";
-const opts = { spotifyId, accessToken, refreshToken, userId };
-
-jest.mock("../../db/db-api", () => ({
-  connectToFavoriteGenresCollection: jest.fn(() =>
-    Promise.resolve({
-      findOneAndUpdate: mockFindOneAndUpdate
-    })
-  )
-}));
+const userId = "000000000000";
+const opts = { accessToken, refreshToken, userId };
 
 jest.mock("../../utilities/spotify-api/spotify-api", () => ({
   getTopArtists: mockGetTopArtists
 }));
 
+jest.mock("../../db/favorite-genres/favorite-genres", () => ({
+  writeFavoriteGenres: jest.fn()
+}));
+
 import { setFavoriteGenres } from "./favorite-genres";
-import { connectToFavoriteGenresCollection } from "../../db/db-api";
 import { getTopArtists } from "../../utilities/spotify-api/spotify-api";
+import { writeFavoriteGenres } from "../../db/favorite-genres/favorite-genres";
 
 describe("favorite-genres", () => {
   beforeEach(() => {
@@ -36,11 +30,6 @@ describe("favorite-genres", () => {
     ]);
   });
 
-  it("should connect to the favorite-genres collection", async () => {
-    await setFavoriteGenres(opts);
-    expect(connectToFavoriteGenresCollection).toHaveBeenCalled();
-  });
-
   it("should get the top artists from spotify", async () => {
     await setFavoriteGenres(opts);
     expect(getTopArtists).toHaveBeenCalledWith({ accessToken, refreshToken });
@@ -48,21 +37,11 @@ describe("favorite-genres", () => {
 
   it("should write to the db a key-value map of genres", async () => {
     await setFavoriteGenres(opts);
-    expect(mockFindOneAndUpdate).toHaveBeenCalledWith(
-      {
-        spotifyId
-      },
-      {
-        $set: {
-          rock: true,
-          pop: true,
-          country: true,
-          metal: true
-        }
-      },
-      {
-        upsert: true
-      }
-    );
+    expect(writeFavoriteGenres).toHaveBeenCalledWith(userId, {
+      rock: true,
+      metal: true,
+      pop: true,
+      country: true
+    });
   });
 });

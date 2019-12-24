@@ -20,6 +20,18 @@ export const getClient = ({ accessToken, refreshToken }: Tokens) =>
     redirectUri: `${baseUrl}/api/login`
   });
 
+export const getArtists = async ({
+  tokens,
+  artistIds
+}: {
+  tokens: Tokens;
+  artistIds: string[];
+}): Promise<Artist[]> => {
+  const client = getClient(tokens);
+  const artists = (await client.getArtists(artistIds)).body.artists;
+  return artists;
+};
+
 export const getAlbumsFromSpotify = async ({
   lastSavedAlbumId,
   tokens
