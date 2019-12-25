@@ -34,7 +34,8 @@ export default class AlbumsPage extends React.PureComponent<
   AlbumsProps,
   State
 > {
-  readonly currentDateKey: string = generateTodayKey();
+  private currentDateKey: string = "";
+
   readonly state = {
     albumsDataSet: { byDate: {}, albumsInfo: {} } as AlbumsDataSet,
     todaysAlbums: [],
@@ -49,6 +50,12 @@ export default class AlbumsPage extends React.PureComponent<
   };
 
   componentDidMount() {
+    this.currentDateKey = new URL(window.location.href).searchParams.get(
+      "debug"
+    )
+      ? "08-30"
+      : generateTodayKey();
+
     const cachedAlbumsDataSet = getSavedAlbums();
     const showSpinner = !Object.keys(cachedAlbumsDataSet.albumsInfo).length;
 
@@ -59,7 +66,7 @@ export default class AlbumsPage extends React.PureComponent<
         showSpinner
       },
       async () => {
-        const [albumsDataSet, socialAlbums] = await Promise.all([
+        const [albumsDataSet, allSocialAlbums] = await Promise.all([
           getUserAlbums(cachedAlbumsDataSet),
           fetchSocialAlbums(this.currentDateKey)
         ]);
@@ -70,9 +77,18 @@ export default class AlbumsPage extends React.PureComponent<
           setSocialAlbums(albums);
         }
 
+        const todaysAlbums = getTodaysAlbums(
+          albumsDataSet,
+          this.currentDateKey
+        );
+
+        const socialAlbums = allSocialAlbums.filter(
+          ({ id }) => !(id in albumsDataSet.albumsInfo)
+        );
+
         this.setState({
           albumsDataSet,
-          todaysAlbums: getTodaysAlbums(albumsDataSet, this.currentDateKey),
+          todaysAlbums,
           socialAlbums,
           showSpinner: false
         });
