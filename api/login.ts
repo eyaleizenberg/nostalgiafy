@@ -34,7 +34,8 @@ passport.use(
     {
       clientID: process.env.SPOTIFY_TOKEN,
       clientSecret: process.env.SPOTIFY_SECRET,
-      callbackURL: `${baseUrl}/api/login`
+      callbackURL: `${baseUrl}/api/login`,
+      resave: false
     },
     getUser
   )

@@ -7,9 +7,7 @@ import { AlbumsDataSet, Album } from "../types";
 import Container from "react-bootstrap/Container";
 import { Albums } from "../components/albums/albums.component";
 import { getTodaysAlbums } from "../utilities/album-utils/album-utils";
-{
-  /* import { generateTodayKey } from "../utilities/date-utils/date-utils"; */
-}
+import { generateTodayKey } from "../utilities/date-utils/date-utils";
 import { Header } from "../components/header/header.component";
 import Link from "next/link";
 import Button from "react-bootstrap/Button";
@@ -24,6 +22,7 @@ interface State {
   todaysAlbums: Album[];
   socialAlbums: Album[];
   showSpinner: boolean;
+  loggingOut: boolean;
 }
 
 interface AlbumsProps {
@@ -35,12 +34,13 @@ export default class AlbumsPage extends React.PureComponent<
   AlbumsProps,
   State
 > {
-  readonly currentDateKey: string = "11-02"; //generateTodayKey();
+  readonly currentDateKey: string = generateTodayKey();
   readonly state = {
     albumsDataSet: { byDate: {}, albumsInfo: {} } as AlbumsDataSet,
     todaysAlbums: [],
     socialAlbums: [],
-    showSpinner: true
+    showSpinner: true,
+    loggingOut: false
   };
 
   static getInitialProps = async (context: NextPageContext) => {
@@ -80,12 +80,21 @@ export default class AlbumsPage extends React.PureComponent<
     );
   }
 
+  onLogoutClick = () => {
+    this.setState({ loggingOut: true });
+  };
+
   renderNav() {
     return (
       <>
         <img src={this.props.profilePic} className="avatar" />
-        <Link href="/logout">
-          <Button variant="warning" size="sm">
+        <Link href="/api/logout">
+          <Button
+            variant="warning"
+            size="sm"
+            onClick={this.onLogoutClick}
+            disabled={this.state.loggingOut}
+          >
             Logout
           </Button>
         </Link>
@@ -101,20 +110,74 @@ export default class AlbumsPage extends React.PureComponent<
     );
   }
 
-  renderSavedAlbums() {
-    const { todaysAlbums, socialAlbums } = this.state;
+  renderTodayAlbums() {
+    const { todaysAlbums } = this.state;
+
+    if (!todaysAlbums.length) {
+      return null;
+    }
+
     return (
       <>
-        <h1>Your Saved Albums</h1>
-        {!!todaysAlbums.length && <Albums albums={todaysAlbums} />}
-        <h1>Albums You Might Like</h1>
-        {!!socialAlbums.length && <Albums albums={socialAlbums} />}
+        <h1>From Your Saved Albums</h1>
+        <Albums albums={todaysAlbums} />
         <style jsx>{`
           h1 {
             text-align: center;
             margin: 15px 0;
           }
         `}</style>
+      </>
+    );
+  }
+
+  renderSocialAlbums() {
+    const { socialAlbums } = this.state;
+
+    if (!socialAlbums.length) {
+      return null;
+    }
+
+    return (
+      <>
+        <h1>Other Albums You Might Like</h1>
+        <Albums albums={socialAlbums} />
+        <style jsx>{`
+          h1 {
+            text-align: center;
+            margin: 25px 0;
+          }
+        `}</style>
+      </>
+    );
+  }
+
+  renderNothing() {
+    const { socialAlbums, todaysAlbums } = this.state;
+    if (socialAlbums.length || todaysAlbums.length) {
+      return null;
+    }
+
+    return (
+      <>
+        <h2>Nothing to show today.</h2>
+        <h2>Come back tomorrow.</h2>
+        <style jsx>{`
+          h2 {
+            text-align: center;
+            margin: 15px 0;
+          }
+        `}</style>
+      </>
+    );
+  }
+
+  renderSavedAlbums() {
+    return (
+      <>
+        {this.renderTodayAlbums()}
+        {this.renderSocialAlbums()}
+        {this.renderNothing()}
       </>
     );
   }

@@ -31,7 +31,7 @@ export class AlbumCard extends React.PureComponent<
     const searchResult = await wiki({
       apiUrl: "https://en.wikipedia.org/w/api.php"
     })
-      .search(`${artist} - ${name}`)
+      .search(`${artist} - ${name}`.replace("(Remastered)", ""))
       .then((data: any) => data.results[0]);
 
     if (searchResult) {
